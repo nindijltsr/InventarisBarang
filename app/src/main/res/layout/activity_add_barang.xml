@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+        <EditText
+            android:id="@+id/edit_nama"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Nama Barang"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_kategori"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Kategori"
+            app:layout_constraintTop_toBottomOf="@id/edit_nama"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/edit_jumlah"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Jumlah"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/edit_kategori"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/edit_tanggal_masuk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Tanggal Masuk"
+            app:layout_constraintTop_toBottomOf="@id/edit_jumlah"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/edit_kondisi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Kondisi"
+            app:layout_constraintTop_toBottomOf="@id/edit_tanggal_masuk"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_ruangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/edit_kondisi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_karyawan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/spinner_ruangan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            app:layout_constraintTop_toBottomOf="@id/spinner_karyawan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.5" />
+</androidx.constraintlayout.widget.ConstraintLayout>
