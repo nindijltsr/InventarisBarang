@@ -26,10 +26,10 @@ class AddKaryawanActivity : AppCompatActivity() {
         val buttonSave = findViewById<Button>(R.id.button_save)
         buttonSave.setOnClickListener {
             val nama = editNama.text.toString()
-            val jabatan = editJabatan.text.toString()
+            val posisi = editJabatan.text.toString()
             val kontak = editKontak.text.toString()
 
-            val karyawan = Karyawan(nama = nama, jabatan = jabatan, kontak = kontak)
+            val karyawan = Karyawan(nama = nama, posisi = posisi, kontak = kontak)
             inventarisViewModel.insertKaryawan(karyawan) // Updated to insertKaryawan
             finish()
         }
