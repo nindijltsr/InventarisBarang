@@ -21,4 +21,7 @@ interface BarangDao {
 
     @Query("SELECT * FROM barang")
     fun getAllBarang(): LiveData<List<Barang>>
+
+    @Query("SELECT * FROM barang WHERE id = :barangId")
+    fun getBarangById(barangId: Int): LiveData<Barang>
 }

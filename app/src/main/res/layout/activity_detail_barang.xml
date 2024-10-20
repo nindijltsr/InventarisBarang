@@ -1,71 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    tools:context=".DetailBarangActivity">
 
     <TextView
-        android:id="@+id/text_nama"
-        android:layout_width="wrap_content"
+        android:id="@+id/textNama"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Nama Barang"
-        android:textStyle="bold"
-        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
 
     <TextView
-        android:id="@+id/text_kategori"
-        android:layout_width="wrap_content"
+        android:id="@+id/textKategori"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Kategori"
-        app:layout_constraintTop_toBottomOf="@id/text_nama"
+        app:layout_constraintTop_toBottomOf="@+id/textNama"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
 
     <TextView
-        android:id="@+id/text_jumlah"
-        android:layout_width="wrap_content"
+        android:id="@+id/textJumlah"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Jumlah"
-        app:layout_constraintTop_toBottomOf="@id/text_kategori"
+        app:layout_constraintTop_toBottomOf="@+id/textKategori"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
 
     <TextView
-        android:id="@+id/text_tanggal_masuk"
-        android:layout_width="wrap_content"
+        android:id="@+id/textTanggalMasuk"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Tanggal Masuk"
-        app:layout_constraintTop_toBottomOf="@id/text_jumlah"
+        app:layout_constraintTop_toBottomOf="@+id/textJumlah"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
 
     <TextView
-        android:id="@+id/text_kondisi"
-        android:layout_width="wrap_content"
+        android:id="@+id/textKondisi"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Kondisi"
-        app:layout_constraintTop_toBottomOf="@id/text_tanggal_masuk"
+        app:layout_constraintTop_toBottomOf="@+id/textTanggalMasuk"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
 
     <TextView
-        android:id="@+id/text_ruangan"
-        android:layout_width="wrap_content"
+        android:id="@+id/textRuangan"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ruangan"
-        app:layout_constraintTop_toBottomOf="@id/text_kondisi"
+        android:text="Nama Ruangan"
+        app:layout_constraintTop_toBottomOf="@+id/textKondisi"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
 
     <TextView
-        android:id="@+id/text_karyawan"
-        android:layout_width="wrap_content"
+        android:id="@+id/textKaryawan"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Karyawan"
-        app:layout_constraintTop_toBottomOf="@id/text_ruangan"
+        android:text="Nama Karyawan"
+        app:layout_constraintTop_toBottomOf="@+id/textRuangan"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

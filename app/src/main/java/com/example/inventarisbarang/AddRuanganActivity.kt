@@ -6,6 +6,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.inventarisbarang.entity.Ruangan
+import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class AddRuanganActivity : AppCompatActivity() {
 
@@ -21,9 +22,9 @@ class AddRuanganActivity : AppCompatActivity() {
 
         val buttonSave = findViewById<Button>(R.id.button_save)
         buttonSave.setOnClickListener {
-            val lokasi = editLokasi.text.toString()
+            val namaRuangan = editLokasi.text.toString()
 
-            val ruangan = Ruangan(lokasi = lokasi)
+            val ruangan = Ruangan(namaRuangan = namaRuangan)
             inventarisViewModel.insertRuangan(ruangan) // Updated to insertRuangan
             finish()
         }

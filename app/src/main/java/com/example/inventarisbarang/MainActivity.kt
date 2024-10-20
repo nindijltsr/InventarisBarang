@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventarisbarang.databinding.ActivityMainBinding
-import com.example.inventarisbarang.entity.Barang
+import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -19,23 +19,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Initialize barangAdapter with required parameters
-        barangAdapter = BarangAdapter(
-            { barang ->  // onItemClickListener for viewing details
-                val intent = Intent(this, DetailBarangActivity::class.java).apply {
-                    putExtra("BARANG_ID", barang.id)
-                }
-                startActivity(intent)
-            },
-            { barang ->  // onDeleteClickListener
-                inventarisViewModel.delete(barang)
-            },
-            { barang ->  // onUpdateClickListener
-                val intent = Intent(this, EditBarangActivity::class.java).apply {
-                    putExtra("BARANG_ID", barang.id)
-                }
-                startActivity(intent)
+        barangAdapter = BarangAdapter { barang ->  // onItemClickListener for viewing details
+            val intent = Intent(this, DetailBarangActivity::class.java).apply {
+                putExtra("BARANG_ID", barang.id)
             }
-        )
+            startActivity(intent)
+        }
+
 
         // Set up RecyclerView with adapter and layout manager
         val recyclerView = binding.recyclerView

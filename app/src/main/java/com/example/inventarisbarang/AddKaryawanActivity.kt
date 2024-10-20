@@ -6,6 +6,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.inventarisbarang.entity.Karyawan
+import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class AddKaryawanActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class AddKaryawanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_karyawan)
 
-        editNama = findViewById(R.id.edit_nama)
+        editNama = findViewById(R.id.edit_namaKaryawan)
         editJabatan = findViewById(R.id.edit_jabatan)
         editKontak = findViewById(R.id.edit_kontak)
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
@@ -29,9 +30,8 @@ class AddKaryawanActivity : AppCompatActivity() {
             val posisi = editJabatan.text.toString()
             val kontak = editKontak.text.toString()
 
-            val karyawan = Karyawan(nama = nama, posisi = posisi, kontak = kontak)
+            val karyawan = Karyawan(namaKaryawan = nama, posisi = posisi, kontak = kontak)
             inventarisViewModel.insertKaryawan(karyawan) // Updated to insertKaryawan
-            finish()
         }
     }
 }

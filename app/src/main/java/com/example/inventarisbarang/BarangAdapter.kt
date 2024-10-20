@@ -1,5 +1,6 @@
 package com.example.inventarisbarang
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class BarangAdapter(private val onItemClickListener: (Barang) -> Unit) : Recycle
         return BarangViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BarangViewHolder, position: Int) {
         val currentBarang = barangList[position]
         holder.namaTextView.text = currentBarang.nama
@@ -35,6 +37,7 @@ class BarangAdapter(private val onItemClickListener: (Barang) -> Unit) : Recycle
 
     override fun getItemCount() = barangList.size
 
+    @SuppressLint("NotifyDataSetChanged")
     internal fun setBarang(barangs: List<Barang>) {
         this.barangList = barangs
         notifyDataSetChanged()

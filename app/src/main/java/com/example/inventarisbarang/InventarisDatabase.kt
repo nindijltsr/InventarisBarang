@@ -5,11 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.inventarisbarang.dao.BarangDao
+import com.example.inventarisbarang.dao.KaryawanDao
+import com.example.inventarisbarang.dao.RuanganDao
 import com.example.inventarisbarang.entity.Barang
+import com.example.inventarisbarang.entity.Karyawan
+import com.example.inventarisbarang.entity.Ruangan
 
-@Database(entities = [Barang::class], version = 1)
+@Database(entities = [Barang::class, Karyawan::class, Ruangan::class], version = 2)
 abstract class InventarisDatabase : RoomDatabase() {
     abstract fun barangDao(): BarangDao
+    abstract fun karyawanDao(): KaryawanDao
+    abstract fun ruanganDao(): RuanganDao
 
     companion object {
         @Volatile
@@ -21,7 +27,9 @@ abstract class InventarisDatabase : RoomDatabase() {
                     context.applicationContext,
                     InventarisDatabase::class.java,
                     "inventaris_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

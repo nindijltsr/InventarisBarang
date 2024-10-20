@@ -1,12 +1,15 @@
-package com.example.inventarisbarang
+package com.example.inventarisbarang.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.inventarisbarang.InventarisDatabase
+import com.example.inventarisbarang.InventarisRepository
 import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
+
 import kotlinx.coroutines.launch
 
 class InventarisViewModel(application: Application) : AndroidViewModel(application) {
@@ -39,6 +42,10 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         repository.delete(barang)
     }
 
+    fun getBarangById(barangId: Int): LiveData<Barang> {
+        return repository.getBarangById(barangId)
+    }
+
     // Ruangan
     fun insertRuangan(ruangan: Ruangan) = viewModelScope.launch {
         repository.insert(ruangan)
@@ -52,6 +59,10 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         repository.delete(ruangan)
     }
 
+    fun getRuanganById(ruanganId: Int): LiveData<Ruangan> {
+        return repository.getRuanganById(ruanganId)
+    }
+
     // Karyawan
     fun insertKaryawan(karyawan: Karyawan) = viewModelScope.launch {
         repository.insert(karyawan)
@@ -63,5 +74,9 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
 
     fun deleteKaryawan(karyawan: Karyawan) = viewModelScope.launch {
         repository.delete(karyawan)
+    }
+
+    fun getKaryawanById(karyawanId: Int): LiveData<Karyawan> {
+        return repository.getKaryawanById(karyawanId)
     }
 }
