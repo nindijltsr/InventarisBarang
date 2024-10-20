@@ -1,0 +1,67 @@
+package com.example.inventarisbarang
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import com.example.inventarisbarang.entity.Barang
+import com.example.inventarisbarang.entity.Karyawan
+import com.example.inventarisbarang.entity.Ruangan
+import kotlinx.coroutines.launch
+
+class InventarisViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val repository: InventarisRepository
+    val allBarang: LiveData<List<Barang>>
+    val allRuangan: LiveData<List<Ruangan>>
+    val allKaryawan: LiveData<List<Karyawan>>
+
+    init {
+        val barangDao = InventarisDatabase.getDatabase(application).barangDao()
+        val ruanganDao = InventarisDatabase.getDatabase(application).ruanganDao()
+        val karyawanDao = InventarisDatabase.getDatabase(application).karyawanDao()
+        repository = InventarisRepository(barangDao, ruanganDao, karyawanDao)
+        allBarang = repository.allBarang
+        allRuangan = repository.allRuangan
+        allKaryawan = repository.allKaryawan
+    }
+
+    // Barang
+    fun insertBarang(barang: Barang) = viewModelScope.launch {
+        repository.insert(barang)
+    }
+
+    fun updateBarang(barang: Barang) = viewModelScope.launch {
+        repository.update(barang)
+    }
+
+    fun deleteBarang(barang: Barang) = viewModelScope.launch {
+        repository.delete(barang)
+    }
+
+    // Ruangan
+    fun insertRuangan(ruangan: Ruangan) = viewModelScope.launch {
+        repository.insert(ruangan)
+    }
+
+    fun updateRuangan(ruangan: Ruangan) = viewModelScope.launch {
+        repository.update(ruangan)
+    }
+
+    fun deleteRuangan(ruangan: Ruangan) = viewModelScope.launch {
+        repository.delete(ruangan)
+    }
+
+    // Karyawan
+    fun insertKaryawan(karyawan: Karyawan) = viewModelScope.launch {
+        repository.insert(karyawan)
+    }
+
+    fun updateKaryawan(karyawan: Karyawan) = viewModelScope.launch {
+        repository.update(karyawan)
+    }
+
+    fun deleteKaryawan(karyawan: Karyawan) = viewModelScope.launch {
+        repository.delete(karyawan)
+    }
+}
