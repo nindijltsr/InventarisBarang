@@ -23,5 +23,5 @@ interface KaryawanDao {
     fun getAllKaryawan(): LiveData<List<Karyawan>>
 
     @Query("SELECT * FROM karyawan WHERE id = :karyawanid")
-    fun getKaryawanById(karyawanid: Int): LiveData<Karyawan>
+    fun getKaryawanById(karyawanid: Long): LiveData<Karyawan>
 }

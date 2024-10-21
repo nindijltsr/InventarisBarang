@@ -17,8 +17,9 @@ class AddRuanganActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_ruangan)
 
-        editLokasi = findViewById(R.id.edit_lokasi)
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
+
+        editLokasi = findViewById(R.id.edit_lokasi)
 
         val buttonSave = findViewById<Button>(R.id.button_save)
         buttonSave.setOnClickListener {

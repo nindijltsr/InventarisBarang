@@ -22,10 +22,10 @@ class EditBarangActivity : AppCompatActivity() {
     private lateinit var spinnerRuangan: Spinner
     private lateinit var spinnerKaryawan: Spinner
     private lateinit var inventarisViewModel: InventarisViewModel
-    private var barangId: Int = 0
+    private var barangId: Long = 0
     private var barang: Barang? = null
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_barang)
@@ -41,7 +41,8 @@ class EditBarangActivity : AppCompatActivity() {
         spinnerRuangan = findViewById(R.id.spinner_ruangan)
         spinnerKaryawan = findViewById(R.id.spinner_karyawan)
 
-        barangId = intent.getIntExtra("BARANG_ID", 0)
+        // Mendapatkan barangId dari intent
+        barangId = intent.getLongExtra("BARANG_ID", 0)
 
         // Observasi data barang berdasarkan ID
         inventarisViewModel.getBarangById(barangId).observe(this, Observer { barang ->
@@ -60,20 +61,22 @@ class EditBarangActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             val nama = editNama.text.toString()
             val kategori = editKategori.text.toString()
-            val jumlah = editJumlah.text.toString().toInt()
+            val jumlah = editJumlah.text.toString().toIntOrNull() ?: 0 // Menggunakan toIntOrNull untuk menghindari NumberFormatException
             val tanggalMasuk = editTanggalMasuk.text.toString()
             val kondisi = editKondisi.text.toString()
 
-            val updatedBarang = barang?.copy(
-                nama = nama,
-                kategori = kategori,
-                jumlah = jumlah,
-                tanggalMasuk = tanggalMasuk,
-                kondisi = kondisi
-            )
-
-            updatedBarang?.let {
-                inventarisViewModel.updateBarang(it)
+            // Update barang jika ada
+            barang?.let {
+                val updatedBarang = it.copy(
+                    nama = nama,
+                    kategori = kategori,
+                    jumlah = jumlah,
+                    tanggalMasuk = tanggalMasuk,
+                    kondisi = kondisi,
+                    ruanganId = spinnerRuangan.selectedItemId.toLong(),  // Ambil ID ruangan dari spinner
+                    karyawanId = spinnerKaryawan.selectedItemId.toLong()   // Ambil ID karyawan dari spinner
+                )
+                inventarisViewModel.updateBarang(updatedBarang)
                 Toast.makeText(this, "Barang berhasil diperbarui", Toast.LENGTH_SHORT).show()
                 finish() // Kembali ke halaman sebelumnya setelah penyimpanan
             }

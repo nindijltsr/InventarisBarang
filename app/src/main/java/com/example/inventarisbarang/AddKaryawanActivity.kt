@@ -19,10 +19,11 @@ class AddKaryawanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_karyawan)
 
+        inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
+
         editNama = findViewById(R.id.edit_namaKaryawan)
         editJabatan = findViewById(R.id.edit_jabatan)
         editKontak = findViewById(R.id.edit_kontak)
-        inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
 
         val buttonSave = findViewById<Button>(R.id.button_save)
         buttonSave.setOnClickListener {
@@ -32,6 +33,7 @@ class AddKaryawanActivity : AppCompatActivity() {
 
             val karyawan = Karyawan(namaKaryawan = nama, jabatan = jabatan, kontak = kontak)
             inventarisViewModel.insertKaryawan(karyawan) // Updated to insertKaryawan
+            finish()
         }
     }
 }

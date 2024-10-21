@@ -44,7 +44,7 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         repository.delete(barang)
     }
 
-    fun getBarangById(barangId: Int): LiveData<Barang> {
+    fun getBarangById(barangId: Long): LiveData<Barang> {
         Log.d("InventarisViewModel", "Mengambil barang dengan ID: $barangId")
         return repository.getBarangById(barangId)
     }
@@ -62,7 +62,7 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         repository.delete(ruangan)
     }
 
-    fun getRuanganById(ruanganId: Int): LiveData<Ruangan> {
+    fun getRuanganById(ruanganId: Long): LiveData<Ruangan> {
         return repository.getRuanganById(ruanganId)
     }
 
@@ -79,7 +79,7 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         repository.delete(karyawan)
     }
 
-    fun getKaryawanById(karyawanId: Int): LiveData<Karyawan> {
+    fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {
         return repository.getKaryawanById(karyawanId)
     }
 }

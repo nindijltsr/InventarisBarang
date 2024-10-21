@@ -22,6 +22,7 @@ class BarangAdapter(
         val kategoriTextView: TextView = itemView.findViewById(R.id.kategori_text_view)
         val jumlahTextView: TextView = itemView.findViewById(R.id.jumlah_text_view)
         val buttonDelete: Button = itemView.findViewById(R.id.button_delete)
+        val buttonUpdate: Button = itemView.findViewById(R.id.button_update)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BarangViewHolder {
@@ -42,6 +43,10 @@ class BarangAdapter(
 
         holder.buttonDelete.setOnClickListener {
             viewModel.deleteBarang(currentBarang) // Menggunakan ViewModel untuk delete
+        }
+
+        holder.buttonUpdate.setOnClickListener {
+            viewModel.updateBarang(currentBarang) // Menggunakan ViewModel untuk update
         }
     }
 

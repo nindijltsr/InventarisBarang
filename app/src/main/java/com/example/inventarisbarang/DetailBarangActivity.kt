@@ -19,7 +19,7 @@ class DetailBarangActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Mendapatkan barang ID dari Intent
-        val barangId = intent.getIntExtra("BARANG_ID", 0)
+        val barangId = intent.getLongExtra("BARANG_ID", 0)
 
         // Observe LiveData untuk barang yang sesuai berdasarkan ID
         inventarisViewModel.getBarangById(barangId).observe(this, Observer { barang ->

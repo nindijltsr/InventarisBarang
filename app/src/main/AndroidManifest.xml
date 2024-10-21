@@ -22,6 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddBarangActivity" />
+        <activity android:name=".AddKaryawanActivity" />
+        <activity android:name=".AddRuanganActivity" />
+        <activity android:name=".EditBarangActivity" />
     </application>
 
 
