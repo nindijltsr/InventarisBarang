@@ -1,6 +1,7 @@
 package com.example.inventarisbarang.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -32,6 +33,7 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
     // Barang
     fun insertBarang(barang: Barang) = viewModelScope.launch {
         repository.insert(barang)
+        Log.d("InventarisViewModel", "Barang disimpan: $barang")
     }
 
     fun updateBarang(barang: Barang) = viewModelScope.launch {
@@ -43,6 +45,7 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun getBarangById(barangId: Int): LiveData<Barang> {
+        Log.d("InventarisViewModel", "Mengambil barang dengan ID: $barangId")
         return repository.getBarangById(barangId)
     }
 

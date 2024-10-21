@@ -55,9 +55,8 @@ class AddBarangActivity : AppCompatActivity() {
                 jumlah = jumlah,
                 tanggalMasuk = tanggalMasuk,
                 kondisi = kondisi,
-                id = TODO(),
-                ruanganId = TODO(),
-                karyawanId = TODO()
+                ruanganId = spinnerRuangan.selectedItemPosition,  // Ganti dengan ID ruangan dari spinner
+                karyawanId = spinnerKaryawan.selectedItemPosition
             )
 
             // Memanggil insertBarang dari instance ViewModel
