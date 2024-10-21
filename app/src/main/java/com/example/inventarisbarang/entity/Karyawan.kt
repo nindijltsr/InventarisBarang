@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class Karyawan(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val namaKaryawan: String,
-    val posisi: String,
+    val jabatan: String,
     val kontak: String
 )

@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.inventarisbarang.databinding.ActivityDetailBarangBinding
 import com.example.inventarisbarang.entity.Barang
-import com.example.inventarisbarang.entity.Karyawan
-import com.example.inventarisbarang.entity.Ruangan
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class DetailBarangActivity : AppCompatActivity() {

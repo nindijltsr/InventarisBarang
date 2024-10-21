@@ -1,7 +1,6 @@
 package com.example.inventarisbarang
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,4 +53,5 @@ class BarangAdapter(
         notifyDataSetChanged()
     }
 }
+
 
