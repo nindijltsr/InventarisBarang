@@ -25,6 +25,7 @@
         <activity android:name=".AddKaryawanActivity" />
         <activity android:name=".AddRuanganActivity" />
         <activity android:name=".EditBarangActivity" />
+        <activity android:name=".DetailBarangActivity" />
     </application>
 
 

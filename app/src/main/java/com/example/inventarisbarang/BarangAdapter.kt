@@ -1,6 +1,7 @@
 package com.example.inventarisbarang
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,7 @@ class BarangAdapter(
         val kategoriTextView: TextView = itemView.findViewById(R.id.kategori_text_view)
         val jumlahTextView: TextView = itemView.findViewById(R.id.jumlah_text_view)
         val buttonDelete: Button = itemView.findViewById(R.id.button_delete)
-        val buttonUpdate: Button = itemView.findViewById(R.id.button_update)
+        val buttonEdit: Button = itemView.findViewById(R.id.button_edit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BarangViewHolder {
@@ -45,8 +46,10 @@ class BarangAdapter(
             viewModel.deleteBarang(currentBarang) // Menggunakan ViewModel untuk delete
         }
 
-        holder.buttonUpdate.setOnClickListener {
-            viewModel.updateBarang(currentBarang) // Menggunakan ViewModel untuk update
+        holder.buttonEdit.setOnClickListener {
+            val intent = Intent(holder.itemView.context, EditBarangActivity::class.java) // Menggunakan ViewModel untuk update
+            intent.putExtra("id", currentBarang.id)
+            holder.itemView.context.startActivity(intent)
         }
     }
 

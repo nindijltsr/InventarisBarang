@@ -53,6 +53,7 @@ class EditBarangActivity : AppCompatActivity() {
                 editTanggalMasuk.setText(it.tanggalMasuk)
                 editKondisi.setText(it.kondisi)
                 this.barang = it
+
             }
         })
 
@@ -64,6 +65,7 @@ class EditBarangActivity : AppCompatActivity() {
             val jumlah = editJumlah.text.toString().toIntOrNull() ?: 0 // Menggunakan toIntOrNull untuk menghindari NumberFormatException
             val tanggalMasuk = editTanggalMasuk.text.toString()
             val kondisi = editKondisi.text.toString()
+
 
             // Update barang jika ada
             barang?.let {

@@ -48,3 +48,5 @@ class DetailBarangActivity : AppCompatActivity() {
         }
     }
 }
+
+

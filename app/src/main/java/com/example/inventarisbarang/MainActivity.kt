@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val db = InventarisDatabase.getDatabase(this)
 
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
@@ -91,5 +90,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddKaryawanActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 }
