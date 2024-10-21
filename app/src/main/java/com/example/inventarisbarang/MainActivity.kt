@@ -2,6 +2,7 @@ package com.example.inventarisbarang
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log // Tambahkan log untuk debugging
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,14 +19,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        inventarisViewModel = ViewModelProvider(this)[InventarisViewModel::class.java]
+
         // Initialize barangAdapter with required parameters
-        barangAdapter = BarangAdapter { barang ->  // onItemClickListener for viewing details
+        barangAdapter = BarangAdapter({ barang ->
             val intent = Intent(this, DetailBarangActivity::class.java).apply {
                 putExtra("BARANG_ID", barang.id)
             }
             startActivity(intent)
-        }
-
+        }, inventarisViewModel)
 
         // Set up RecyclerView with adapter and layout manager
         val recyclerView = binding.recyclerView
@@ -33,9 +35,13 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         // Initialize ViewModel and observe LiveData
-        inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
+
+        // Observe data barang dari ViewModel
         inventarisViewModel.allBarang.observe(this, { barangs ->
-            barangs?.let { barangAdapter.setBarang(it) }
+            if (barangs != null) {
+                barangAdapter.setBarang(barangs)
+                Log.d("MainActivity", "Data barang diobservasi: $barangs") // Debugging
+            }
         })
 
         // Set up button listeners

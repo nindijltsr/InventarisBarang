@@ -1,14 +1,20 @@
 package com.example.inventarisbarang
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventarisbarang.entity.Barang
+import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
-class BarangAdapter(private val onItemClickListener: (Barang) -> Unit) : RecyclerView.Adapter<BarangAdapter.BarangViewHolder>() {
+class BarangAdapter(
+    private val onItemClickListener: (Barang) -> Unit,
+    private val viewModel: InventarisViewModel // ViewModel ditambahkan sebagai parameter
+) : RecyclerView.Adapter<BarangAdapter.BarangViewHolder>() {
 
     private var barangList = emptyList<Barang>()
 
@@ -16,6 +22,7 @@ class BarangAdapter(private val onItemClickListener: (Barang) -> Unit) : Recycle
         val namaTextView: TextView = itemView.findViewById(R.id.nama_text_view)
         val kategoriTextView: TextView = itemView.findViewById(R.id.kategori_text_view)
         val jumlahTextView: TextView = itemView.findViewById(R.id.jumlah_text_view)
+        val buttonDelete: Button = itemView.findViewById(R.id.button_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BarangViewHolder {
@@ -33,6 +40,10 @@ class BarangAdapter(private val onItemClickListener: (Barang) -> Unit) : Recycle
         holder.itemView.setOnClickListener {
             onItemClickListener(currentBarang)
         }
+
+        holder.buttonDelete.setOnClickListener {
+            viewModel.deleteBarang(currentBarang) // Memanggil deleteBarang dari ViewModel
+        }
     }
 
     override fun getItemCount() = barangList.size
@@ -40,6 +51,7 @@ class BarangAdapter(private val onItemClickListener: (Barang) -> Unit) : Recycle
     @SuppressLint("NotifyDataSetChanged")
     internal fun setBarang(barangs: List<Barang>) {
         this.barangList = barangs
+        Log.d("BarangAdapter", "Barang list di-update: $barangList")
         notifyDataSetChanged()
     }
 }

@@ -55,12 +55,11 @@ class AddBarangActivity : AppCompatActivity() {
                 jumlah = jumlah,
                 tanggalMasuk = tanggalMasuk,
                 kondisi = kondisi,
-                id = TODO(),
-                ruanganId = TODO(),
-                karyawanId = TODO()
+                ruanganId = spinnerRuangan.selectedItemPosition,  // Ganti dengan ID ruangan dari spinner
+                karyawanId = spinnerKaryawan.selectedItemPosition  // Ganti dengan ID karyawan dari spinner
             )
 
-            // Memanggil insertBarang dari instance ViewModel
+// Memanggil insertBarang dari instance ViewModel
             inventarisViewModel.insertBarang(barang)
             finish() // Selesai dan kembali ke activity sebelumnya
         }
