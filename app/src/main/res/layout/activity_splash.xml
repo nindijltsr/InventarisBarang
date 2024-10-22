@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7AA2E3">
+    android:background="@color/DarkBlue">
 
     <ImageView
         android:id="@+id/icon"
@@ -18,17 +18,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <Button
         android:id="@+id/button_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="116dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/OceanBlue"
         android:text="Next"
-        app:layout_constraintTop_toBottomOf="@id/icon"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginTop="16dp"/> <!-- Margin untuk memberi jarak dari logo -->
+        app:layout_constraintStart_toStartOf="parent" /> <!-- Margin untuk memberi jarak dari logo -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
