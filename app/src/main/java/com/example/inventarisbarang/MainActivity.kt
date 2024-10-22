@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         barangAdapter = BarangAdapter({ barang ->
             val intent = Intent(this, DetailBarangActivity::class.java)
-            intent.putExtra("barang_id", barang.id)
+            intent.putExtra("BARANG_ID", barang.id)
             startActivity(intent)
         }, inventarisViewModel)
 

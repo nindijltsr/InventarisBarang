@@ -1,6 +1,7 @@
 package com.example.inventarisbarang
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -48,6 +49,7 @@ class DetailBarangActivity : AppCompatActivity() {
             textJumlah.text = "Jumlah: ${barang.jumlah}"
             textTanggalMasuk.text = "Tanggal Masuk: ${barang.tanggalMasuk}"
             textKondisi.text = "Kondisi: ${barang.kondisi}"
+            Log.d("DetailBarangActivity", "Menampilkan detail barang: $barang")
         }
     }
 }

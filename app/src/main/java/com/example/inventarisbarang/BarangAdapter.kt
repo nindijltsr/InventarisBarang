@@ -15,7 +15,6 @@ class BarangAdapter(
     private val onItemClickListener: (Barang) -> Unit,
     private val viewModel: InventarisViewModel // Tambahkan parameter kedua untuk ViewModel
 ) : RecyclerView.Adapter<BarangAdapter.BarangViewHolder>() {
-
     private var barangList = emptyList<Barang>()
 
     inner class BarangViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,14 +37,12 @@ class BarangAdapter(
         holder.kategoriTextView.text = "Kategori: ${currentBarang.kategori}"
         holder.jumlahTextView.text = "Jumlah: ${currentBarang.jumlah}"
 
-            holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener {
             onItemClickListener(currentBarang)
         }
-
         holder.buttonDelete.setOnClickListener {
             viewModel.deleteBarang(currentBarang) // Menggunakan ViewModel untuk delete
         }
-
         holder.buttonEdit.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditBarangActivity::class.java) // Menggunakan ViewModel untuk update
             intent.putExtra("id", currentBarang.id)
@@ -61,5 +58,3 @@ class BarangAdapter(
         notifyDataSetChanged()
     }
 }
-
-
