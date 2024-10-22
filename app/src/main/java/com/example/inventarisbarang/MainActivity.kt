@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +69,25 @@ class MainActivity : AppCompatActivity() {
     private fun showAddBarangDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_barang, null)
 
+        val spinnerRuangan = dialogView.findViewById<Spinner>(R.id.spinner_ruangan)
+        val spinnerKaryawan = dialogView.findViewById<Spinner>(R.id.spinner_karyawan)
+
+        // Mengisi spinnerRuangan dengan data Ruangan
+        inventarisViewModel.allRuangan.observe(this, { ruanganList ->
+            val ruanganNames = ruanganList.map { it.namaRuangan }
+            val ruanganAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ruanganNames)
+            ruanganAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerRuangan.adapter = ruanganAdapter
+        })
+
+        // Mengisi spinnerKaryawan dengan data Karyawan
+        inventarisViewModel.allKaryawan.observe(this, { karyawanList ->
+            val karyawanNames = karyawanList.map { it.namaKaryawan }
+            val karyawanAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, karyawanNames)
+            karyawanAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerKaryawan.adapter = karyawanAdapter
+        })
+
         val dialog = AlertDialog.Builder(this)
             .setTitle("Add Barang")
             .setView(dialogView)
@@ -86,14 +107,17 @@ class MainActivity : AppCompatActivity() {
             val tanggalMasuk = editTanggalMasuk.text.toString()
             val kondisi = editKondisi.text.toString()
 
+            val ruanganId = inventarisViewModel.allRuangan.value?.get(spinnerRuangan.selectedItemPosition)?.id ?: 0
+            val karyawanId = inventarisViewModel.allKaryawan.value?.get(spinnerKaryawan.selectedItemPosition)?.id ?: 0
+
             val barang = Barang(
                 nama = nama,
                 kategori = kategori,
                 jumlah = jumlah,
                 tanggalMasuk = tanggalMasuk,
                 kondisi = kondisi,
-                ruanganId = 0,
-                karyawanId = 0
+                ruanganId = ruanganId,
+                karyawanId = karyawanId
             )
 
             inventarisViewModel.insertBarang(barang)
@@ -103,6 +127,7 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
 
     private fun showAddKaryawanDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_karyawan, null)
