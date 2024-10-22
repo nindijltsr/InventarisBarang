@@ -62,7 +62,8 @@ class EditBarangActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             val nama = editNama.text.toString()
             val kategori = editKategori.text.toString()
-            val jumlah = editJumlah.text.toString().toIntOrNull() ?: 0 // Menggunakan toIntOrNull untuk menghindari NumberFormatException
+            val jumlah = editJumlah.text.toString().toIntOrNull()
+                ?: 0 // Menggunakan toIntOrNull untuk menghindari NumberFormatException
             val tanggalMasuk = editTanggalMasuk.text.toString()
             val kondisi = editKondisi.text.toString()
 
@@ -81,16 +82,6 @@ class EditBarangActivity : AppCompatActivity() {
                 inventarisViewModel.updateBarang(updatedBarang)
                 Toast.makeText(this, "Barang berhasil diperbarui", Toast.LENGTH_SHORT).show()
                 finish() // Kembali ke halaman sebelumnya setelah penyimpanan
-            }
-        }
-
-        // Tombol Hapus
-        val buttonDelete = findViewById<Button>(R.id.button_delete)
-        buttonDelete.setOnClickListener {
-            barang?.let {
-                inventarisViewModel.deleteBarang(it) // Menghapus barang dari database
-                Toast.makeText(this, "Barang berhasil dihapus", Toast.LENGTH_SHORT).show()
-                finish() // Kembali setelah penghapusan
             }
         }
     }
