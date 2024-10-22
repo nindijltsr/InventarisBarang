@@ -90,7 +90,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddKaryawanActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 }
