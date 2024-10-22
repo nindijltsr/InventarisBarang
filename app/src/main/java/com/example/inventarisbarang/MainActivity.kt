@@ -25,18 +25,15 @@ class MainActivity : AppCompatActivity() {
 
         barangAdapter = BarangAdapter({ barang ->
             val intent = Intent(this, DetailBarangActivity::class.java)
-            intent.putExtra("barang_id", barang.id)
+            intent.putExtra("BARANG_ID", barang.id)
             startActivity(intent)
         }, inventarisViewModel)
 
 
-        // Set up RecyclerView with adapter and layout manager
+        // RecyclerView dengan adapter dan  layout manager
         val recyclerView = binding.recyclerView
         recyclerView.adapter = barangAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Initialize ViewModel and observe LiveData
-
 
         // Observe data barang dari ViewModel
         inventarisViewModel.allBarang.observe(this, { barangs ->

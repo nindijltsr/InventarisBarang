@@ -9,7 +9,6 @@ import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class DetailBarangActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityDetailBarangBinding
     private val inventarisViewModel: InventarisViewModel by viewModels()
 
@@ -31,22 +30,24 @@ class DetailBarangActivity : AppCompatActivity() {
     private fun displayBarangDetails(barang: Barang) {
         // Mendapatkan nama ruangan dan nama karyawan berdasarkan ID
         inventarisViewModel.getRuanganById(barang.ruanganId).observe(this, Observer { ruangan ->
-            ruangan?.let { binding.textRuangan.text = it.namaRuangan }
+            ruangan?.let {
+                binding.textRuangan.text = "Ruangan : ${it.namaRuangan}"
+            }
         })
 
         inventarisViewModel.getKaryawanById(barang.karyawanId).observe(this, Observer { karyawan ->
-            karyawan?.let { binding.textKaryawan.text = it.namaKaryawan }
+            karyawan?.let {
+                binding.textKaryawan.text = "Penanggung jawab : ${it.namaKaryawan}"
+            }
         })
 
         // Menampilkan detail barang di UI
         binding.apply {
-            textNama.text = barang.nama
-            textKategori.text = barang.kategori
-            textJumlah.text = barang.jumlah.toString()
-            textTanggalMasuk.text = barang.tanggalMasuk
-            textKondisi.text = barang.kondisi
+            textNama.text = "Nama Barang : ${barang.nama} "
+            textKategori.text = "Kategori : ${barang.kategori}"
+            textJumlah.text = "Jumlah: ${barang.jumlah}"
+            textTanggalMasuk.text = "Tanggal Masuk: ${barang.tanggalMasuk}"
+            textKondisi.text = "Kondisi: ${barang.kondisi}"
         }
     }
 }
-
-
