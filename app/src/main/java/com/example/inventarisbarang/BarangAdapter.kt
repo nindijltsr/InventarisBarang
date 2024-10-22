@@ -13,6 +13,7 @@ import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class BarangAdapter(
     private val onItemClickListener: (Barang) -> Unit,
+    private val editClickListener: (Barang) -> Unit,
     private val viewModel: InventarisViewModel // Tambahkan parameter kedua untuk ViewModel
 ) : RecyclerView.Adapter<BarangAdapter.BarangViewHolder>() {
     private var barangList = emptyList<Barang>()
@@ -44,9 +45,7 @@ class BarangAdapter(
             viewModel.deleteBarang(currentBarang) // Menggunakan ViewModel untuk delete
         }
         holder.buttonEdit.setOnClickListener {
-            val intent = Intent(holder.itemView.context, EditBarangActivity::class.java) // Menggunakan ViewModel untuk update
-            intent.putExtra("BARANG_ID", currentBarang.id)
-            holder.itemView.context.startActivity(intent)
+            editClickListener(currentBarang) // Panggil callback untuk menampilkan dialog
         }
     }
 

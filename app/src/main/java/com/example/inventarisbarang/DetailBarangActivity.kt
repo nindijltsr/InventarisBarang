@@ -63,6 +63,4 @@ class DetailBarangActivity : AppCompatActivity() {
             textKondisi.text = "Kondisi: ${barang.kondisi}"
         }
     }
-
-
 }
