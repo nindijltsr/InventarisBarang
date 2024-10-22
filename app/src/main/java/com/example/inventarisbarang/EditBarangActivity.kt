@@ -2,6 +2,7 @@ package com.example.inventarisbarang
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
@@ -26,10 +27,11 @@ class EditBarangActivity : AppCompatActivity() {
     private lateinit var inventarisViewModel: InventarisViewModel
     private var barangId: Long = 0
     private var barang: Barang? = null
-    private lateinit var ruanganList: List<Ruangan>
-    private lateinit var karyawanList: List<Karyawan>
 
-            @SuppressLint("MissingInflatedId", "SetTextI18n")
+    @SuppressLint("MissingInflatedId", "SetTextI18n")
+    private var ruanganList: List<Ruangan> = emptyList()
+    private var karyawanList: List<Karyawan> = emptyList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_barang)
@@ -37,6 +39,7 @@ class EditBarangActivity : AppCompatActivity() {
         // Inisialisasi ViewModel
         inventarisViewModel = ViewModelProvider(this)[InventarisViewModel::class.java]
 
+        // Inisialisasi EditText dan Spinner
         editNama = findViewById(R.id.edit_nama)
         editKategori = findViewById(R.id.edit_kategori)
         editJumlah = findViewById(R.id.edit_jumlah)
@@ -48,6 +51,22 @@ class EditBarangActivity : AppCompatActivity() {
         // Mendapatkan barangId dari intent
         barangId = intent.getLongExtra("BARANG_ID", 0)
 
+        // Observasi data ruangan dan karyawan
+        inventarisViewModel.allRuangan.observe(this, Observer { ruangan ->
+            ruanganList = ruangan
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ruanganList.map { it.namaRuangan })
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerRuangan.adapter = adapter
+        })
+
+        inventarisViewModel.allKaryawan.observe(this, Observer { karyawan ->
+            karyawanList = karyawan
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, karyawanList.map { it.namaKaryawan })
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerKaryawan.adapter = adapter
+        })
+
+        // Observasi data barang berdasarkan ID
         // Observasi data barang berdasarkan ID
         inventarisViewModel.getBarangById(barangId).observe(this, Observer { barang ->
             barang?.let {
@@ -58,19 +77,28 @@ class EditBarangActivity : AppCompatActivity() {
                 editKondisi.setText(it.kondisi)
                 this.barang = it
 
+                // Set posisi spinner sesuai dengan ID
+                val selectedRuanganPosition = ruanganList.indexOfFirst { ruangan -> ruangan.id == it.ruanganId }
+                if (selectedRuanganPosition != -1) {
+                    spinnerRuangan.setSelection(selectedRuanganPosition)
+                }
+
+                val selectedKaryawanPosition = karyawanList.indexOfFirst { karyawan -> karyawan.id == it.karyawanId }
+                if (selectedKaryawanPosition != -1) {
+                    spinnerKaryawan.setSelection(selectedKaryawanPosition)
+                }
             }
         })
+
 
         // Tombol Simpan
         val buttonSave = findViewById<Button>(R.id.button_save)
         buttonSave.setOnClickListener {
             val nama = editNama.text.toString()
             val kategori = editKategori.text.toString()
-            val jumlah = editJumlah.text.toString().toIntOrNull()
-                ?: 0 // Menggunakan toIntOrNull untuk menghindari NumberFormatException
+            val jumlah = editJumlah.text.toString().toIntOrNull() ?: 0 // Menghindari NumberFormatException
             val tanggalMasuk = editTanggalMasuk.text.toString()
             val kondisi = editKondisi.text.toString()
-
 
             // Update barang jika ada
             barang?.let {
@@ -80,13 +108,29 @@ class EditBarangActivity : AppCompatActivity() {
                     jumlah = jumlah,
                     tanggalMasuk = tanggalMasuk,
                     kondisi = kondisi,
-                    ruanganId = spinnerRuangan.selectedItemId.toLong(),  // Ambil ID ruangan dari spinner
-                    karyawanId = spinnerKaryawan.selectedItemId.toLong()   // Ambil ID karyawan dari spinner
+                    ruanganId = ruanganList[spinnerRuangan.selectedItemPosition].id, // Ambil ID ruangan dari spinner
+                    karyawanId = karyawanList[spinnerKaryawan.selectedItemPosition].id // Ambil ID karyawan dari spinner
                 )
                 inventarisViewModel.updateBarang(updatedBarang)
                 Toast.makeText(this, "Barang berhasil diperbarui", Toast.LENGTH_SHORT).show()
                 finish() // Kembali ke halaman sebelumnya setelah penyimpanan
             }
+        }
+
+        // Tombol Hapus
+        val buttonDelete = findViewById<Button>(R.id.button_delete)
+        buttonDelete.setOnClickListener {
+            barang?.let {
+                inventarisViewModel.deleteBarang(it) // Menghapus barang dari database
+                Toast.makeText(this, "Barang berhasil dihapus", Toast.LENGTH_SHORT).show()
+                finish() // Kembali setelah penghapusan
+            }
+        }
+
+        // Tombol Kembali
+        val buttonBack = findViewById<Button>(R.id.button_back)
+        buttonBack.setOnClickListener {
+            finish()
         }
     }
 }

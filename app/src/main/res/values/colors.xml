@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryPressEdit">#015201</color> <!-- Warna utama -->
+    <color name="colorPrimaryHoverEdit">#009400</color> <!-- Warna saat hover -->
+    <color name="colorPrimaryPressDelete">#620000</color> <!-- Warna utama -->
+    <color name="colorPrimaryHoverDelete">#AD0000</color> <!-- Warna saat hover -->
+    <color name="colorAccent">#03DAC5</color> <!-- Warna saat ditekan -->
+    <color name="red">#FF0000</color> <!-- Merah untuk tombol delete -->
+    <color name="green">#00FF00</color> <!-- Hijau untuk tombol edit -->
+    <color name="gray">#F5F5F5</color> <!-- Abu-abu untuk background -->
+    <color name="darkGray">#E0E0E0</color> <!-- Abu-abu gelap untuk background tint -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="DarkBlue">#1967B1</color>

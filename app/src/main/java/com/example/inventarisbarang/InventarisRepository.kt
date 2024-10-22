@@ -17,6 +17,7 @@ class InventarisRepository(
     val allRuangan: LiveData<List<Ruangan>> = ruanganDao.getAllRuangan()
     val allKaryawan: LiveData<List<Karyawan>> = karyawanDao.getAllKaryawan()
 
+//    barang
     suspend fun insert(barang: Barang) {
         barangDao.insert(barang)
     }
@@ -29,10 +30,14 @@ class InventarisRepository(
         barangDao.delete(barang)
     }
 
+//    fun getAllBarang(): LiveData<List<Barang>> {
+//        return barangDao.getAllBarang()
+//    }
+
     fun getBarangById(barangId: Long): LiveData<Barang> {
         return barangDao.getBarangById(barangId)
     }
-
+//Ruangan
     suspend fun insert(ruangan: Ruangan) {
         ruanganDao.insert(ruangan)
     }
@@ -45,10 +50,14 @@ class InventarisRepository(
         ruanganDao.delete(ruangan)
     }
 
+//    fun getAllRuangan(): LiveData<List<Ruangan>> {
+//        return ruanganDao.getAllRuangan()
+//    }
+
     fun getRuanganById(ruanganId: Long): LiveData<Ruangan> {
         return ruanganDao.getRuanganById(ruanganId)
     }
-
+//Karyawan
     suspend fun insert(karyawan: Karyawan) {
         karyawanDao.insert(karyawan)
     }
@@ -60,6 +69,10 @@ class InventarisRepository(
     suspend fun delete(karyawan: Karyawan) {
         karyawanDao.delete(karyawan)
     }
+
+//    fun getAllKaryawan(): LiveData<List<Karyawan>> {
+//        return karyawanDao.getAllKaryawan()
+//    }
 
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {
         return karyawanDao.getKaryawanById(karyawanId)

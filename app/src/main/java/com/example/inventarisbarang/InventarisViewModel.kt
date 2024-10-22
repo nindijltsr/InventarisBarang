@@ -79,6 +79,7 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         repository.delete(karyawan)
     }
 
+
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {
         return repository.getKaryawanById(karyawanId)
     }

@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val db = InventarisDatabase.getDatabase(this)
 
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
 
@@ -107,6 +106,11 @@ class MainActivity : AppCompatActivity() {
             val tanggalMasuk = editTanggalMasuk.text.toString()
             val kondisi = editKondisi.text.toString()
 
+            if (nama.isBlank() || kategori.isBlank() || tanggalMasuk.isBlank() || kondisi.isBlank()) {
+                Toast.makeText(this, "Mohon isi semua kolom", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val ruanganId = inventarisViewModel.allRuangan.value?.get(spinnerRuangan.selectedItemPosition)?.id ?: 0
             val karyawanId = inventarisViewModel.allKaryawan.value?.get(spinnerKaryawan.selectedItemPosition)?.id ?: 0
 
@@ -128,7 +132,6 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-
     private fun showAddKaryawanDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_karyawan, null)
 
@@ -146,6 +149,11 @@ class MainActivity : AppCompatActivity() {
             val nama = editNama.text.toString()
             val jabatan = editJabatan.text.toString()
             val kontak = editKontak.text.toString()
+
+            if (nama.isBlank() || jabatan.isBlank() || kontak.isBlank()) {
+                Toast.makeText(this, "Mohon isi semua kolom", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val karyawan = Karyawan(namaKaryawan = nama, jabatan = jabatan, kontak = kontak)
             inventarisViewModel.insertKaryawan(karyawan)
@@ -169,6 +177,11 @@ class MainActivity : AppCompatActivity() {
             val editLokasi = dialogView.findViewById<EditText>(R.id.edit_lokasi)
 
             val namaRuangan = editLokasi.text.toString()
+
+            if (namaRuangan.isBlank()) {
+                Toast.makeText(this, "Mohon isi semua kolom", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val ruangan = Ruangan(namaRuangan = namaRuangan)
             inventarisViewModel.insertRuangan(ruangan)
