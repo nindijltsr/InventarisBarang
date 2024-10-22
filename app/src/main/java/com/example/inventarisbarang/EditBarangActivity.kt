@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.inventarisbarang.entity.Barang
+import com.example.inventarisbarang.entity.Karyawan
+import com.example.inventarisbarang.entity.Ruangan
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class EditBarangActivity : AppCompatActivity() {
@@ -24,8 +26,10 @@ class EditBarangActivity : AppCompatActivity() {
     private lateinit var inventarisViewModel: InventarisViewModel
     private var barangId: Long = 0
     private var barang: Barang? = null
+    private lateinit var ruanganList: List<Ruangan>
+    private lateinit var karyawanList: List<Karyawan>
 
-    @SuppressLint("MissingInflatedId", "SetTextI18n")
+            @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_barang)

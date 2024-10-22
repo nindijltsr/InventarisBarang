@@ -45,7 +45,7 @@ class BarangAdapter(
         }
         holder.buttonEdit.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditBarangActivity::class.java) // Menggunakan ViewModel untuk update
-            intent.putExtra("id", currentBarang.id)
+            intent.putExtra("BARANG_ID", currentBarang.id)
             holder.itemView.context.startActivity(intent)
         }
     }
