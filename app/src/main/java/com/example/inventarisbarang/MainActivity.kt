@@ -14,8 +14,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var inventarisViewModel: InventarisViewModel
     private lateinit var barangAdapter: BarangAdapter
-    private lateinit var karyawanAdapter: KaryawanAdapter
-    private lateinit var ruanganAdapter: RuanganAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +29,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }, inventarisViewModel)
 
-        karyawanAdapter = KaryawanAdapter({ karyawan ->
-            val intent = Intent(this, DetailKaryawanActivity::class.java)
-            intent.putExtra("karyawan_id", karyawan.id)
-            startActivity(intent)
-        }, inventarisViewModel)
-
-        ruanganAdapter = RuanganAdapter({ ruangan ->
-            val intent = Intent(this, DetailRuanganActivity::class.java)
-            intent.putExtra("ruangan_id", ruangan.id)
-            startActivity(intent)
-        }, inventarisViewModel)
 
         // Set up RecyclerView with adapter and layout manager
         val recyclerView = binding.recyclerView
@@ -58,22 +45,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivity", "Data barang diobservasi: $barangs") // Debugging
             }
         })
-
-        inventarisViewModel.allKaryawan.observe(this, { karyawans ->
-            if (karyawans != null) {
-                karyawanAdapter.setKaryawan(karyawans)
-                Log.d("MainActivity", "Data karyawan diobservasi: $karyawans") // Debugging
-            }
-        })
-
-        inventarisViewModel.allRuangan.observe(this, { ruangan ->
-            if (ruangan != null) {
-                ruanganAdapter.setRuangan(ruangan)
-                Log.d("MainActivity", "Data ruangan diobservasi: $ruangan") // Debugging
-            }
-        })
-
-
 
         // Set up button listeners
         binding.buttonAdd.setOnClickListener {
