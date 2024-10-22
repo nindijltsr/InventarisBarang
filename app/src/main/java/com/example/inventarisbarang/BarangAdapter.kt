@@ -35,10 +35,10 @@ class BarangAdapter(
     override fun onBindViewHolder(holder: BarangViewHolder, position: Int) {
         val currentBarang = barangList[position]
         holder.namaTextView.text = currentBarang.nama
-        holder.kategoriTextView.text = currentBarang.kategori
-        holder.jumlahTextView.text = currentBarang.jumlah.toString()
+        holder.kategoriTextView.text = "Kategori: ${currentBarang.kategori}"
+        holder.jumlahTextView.text = "Jumlah: ${currentBarang.jumlah}"
 
-        holder.itemView.setOnClickListener {
+            holder.itemView.setOnClickListener {
             onItemClickListener(currentBarang)
         }
 
