@@ -24,7 +24,6 @@ class DetailBarangActivity : AppCompatActivity() {
         val barangId = intent.getLongExtra("BARANG_ID", 0)
 
         // Observe LiveData untuk barang yang sesuai berdasarkan ID
-
         inventarisViewModel.getBarangById(barangId).observe(this, Observer { barang ->
             barang?.let { displayBarangDetails(it) }
         })
@@ -50,6 +49,8 @@ class DetailBarangActivity : AppCompatActivity() {
         inventarisViewModel.getKaryawanById(barang.karyawanId).observe(this, Observer { karyawan ->
             karyawan?.let {
                 binding.textKaryawan.text = "Penanggung jawab : ${it.namaKaryawan}"
+                binding.textJabatanKaryawan.text = "Jabatan : ${it.jabatan}"
+                binding.textKontakKaryawan.text = "Kontak : ${it.kontak}"
             }
         })
 

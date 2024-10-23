@@ -66,16 +66,53 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="16dp"/>
 
+    <!-- New Title for Penanggung Jawab Barang -->
     <TextView
-        android:id="@+id/textKaryawan"
+        android:id="@+id/textPenanggungJawabTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nama Karyawan"
+        android:text="Penanggung Jawab Barang"
+        android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/textRuangan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="16dp"/>
 
+    <!-- TextView for Nama Karyawan -->
+    <TextView
+        android:id="@+id/textKaryawan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nama Karyawan"
+        app:layout_constraintTop_toBottomOf="@+id/textPenanggungJawabTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
+
+    <!-- TextView for Jabatan Karyawan -->
+    <TextView
+        android:id="@+id/textJabatanKaryawan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Jabatan "
+        app:layout_constraintTop_toBottomOf="@+id/textKaryawan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
+
+    <!-- TextView for Kontak Karyawan -->
+    <TextView
+        android:id="@+id/textKontakKaryawan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Kontak "
+        app:layout_constraintTop_toBottomOf="@+id/textJabatanKaryawan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
+
+    <!-- Existing Button for Kembali -->
     <Button
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
@@ -83,9 +120,9 @@
         android:text="Kembali"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textKaryawan"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textKontakKaryawan"
+        app:layout_constraintVertical_bias="0.058"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
