@@ -6,8 +6,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
+    android:background="@color/DarkBlue2"
     tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryVariant"
+        tools:ignore="MissingConstraints" /> <!-- Gunakan warna dari tema -->
+
 
     <TextView
         android:id="@+id/title_text_view"
@@ -17,7 +25,7 @@
         android:text="Inventory Barang"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -27,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
+        android:background="@color/DarkBlue2"
         app:layout_constraintTop_toBottomOf="@id/title_text_view"
         app:layout_constraintBottom_toTopOf="@+id/button_add"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="#B0BEC5"
+        android:backgroundTint="@color/DarkBlue"
         android:padding="8dp"
         android:text="Add Barang"
         android:textColor="#FFFFFF"
@@ -52,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="#B0BEC5"
+        android:backgroundTint="@color/DarkBlue"
         android:padding="8dp"
         android:text="Add Ruangan"
         android:textColor="#FFFFFF"
@@ -65,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
-        android:background="#B0BEC5"
+        android:backgroundTint="@color/DarkBlue"
         android:padding="8dp"
         android:text="Add Karyawan"
         android:textColor="#FFFFFF"

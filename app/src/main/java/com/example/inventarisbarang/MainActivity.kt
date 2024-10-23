@@ -22,6 +22,7 @@ import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
 import androidx.lifecycle.Observer
+import androidx.core.content.ContextCompat
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.DarkBlue)
 
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
 
@@ -294,6 +297,9 @@ class MainActivity : AppCompatActivity() {
         val textKondisi = dialogView.findViewById<TextView>(R.id.textKondisi)
         val textRuangan = dialogView.findViewById<TextView>(R.id.textRuangan)
         val textKaryawan = dialogView.findViewById<TextView>(R.id.textKaryawan)
+        val textJabatan = dialogView.findViewById<TextView>(R.id.textJabatanKaryawan)
+        val textKontak = dialogView.findViewById<TextView>(R.id.textKontakKaryawan)
+
 
         // Mengisi data barang
         textNama.text = "Nama Barang: ${barang.nama}"
@@ -312,6 +318,8 @@ class MainActivity : AppCompatActivity() {
         inventarisViewModel.getKaryawanById(barang.karyawanId).observe(this, Observer { karyawan ->
             karyawan?.let {
                 textKaryawan.text = "Penanggung Jawab: ${it.namaKaryawan}"
+                textJabatan.text = "Jabatan: ${it.jabatan}"
+                textKontak.text = "Kontak: ${it.kontak}"
             }
         })
 

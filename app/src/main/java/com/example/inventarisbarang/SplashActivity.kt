@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var buttonNext: Button
@@ -11,6 +12,8 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash) // Pastikan ini mengarah ke layout yang benar
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.DarkBlue)
 
         // Inisialisasi tombol
         buttonNext = findViewById(R.id.button_next)

@@ -36,7 +36,7 @@ class BarangAdapter(
         val currentBarang = barangList[position]
         holder.namaTextView.text = currentBarang.nama
         holder.kategoriTextView.text = "Kategori: ${currentBarang.kategori}"
-        holder.jumlahTextView.text = "Jumlah: ${currentBarang.jumlah}"
+        holder.jumlahTextView.text = "Jumlah: ${currentBarang.jumlah} Unit"
 
         holder.itemView.setOnClickListener {
             onItemClickListener(currentBarang)

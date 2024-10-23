@@ -79,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
+            android:backgroundTint="@color/DarkBlue"
             app:layout_constraintTop_toBottomOf="@id/spinner_karyawan"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

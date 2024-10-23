@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.InventarisBarang." parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Atur warna status bar -->
+        <item name="android:statusBarColor">@color/DarkBlue</item>
+        <!-- Warna status bar -->
+        <item name="android:windowLightStatusBar">false</item> <!-- Untuk memastikan ikon status bar tetap terlihat jelas jika warnanya gelap -->
+    </style>
+</resources>
