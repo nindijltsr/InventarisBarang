@@ -11,7 +11,7 @@ import com.example.inventarisbarang.entity.Barang
 @Dao
 interface BarangDao {
     @Insert
-    suspend fun insert(barang: Barang)
+    fun insert(barang: Barang)
 
     @Update
     suspend fun update(barang: Barang)
@@ -25,4 +25,6 @@ interface BarangDao {
     @Query("SELECT * FROM barang WHERE id = :barangId")
     fun getBarangById(barangId: Long): LiveData<Barang>
 
+    @Query("SELECT * FROM barang")
+    fun getAll(): Array<Barang>
 }

@@ -16,6 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
     }
 
     buildTypes {
@@ -72,4 +73,8 @@ dependencies {
     implementation(libs.androidx.activity.activity.ktx)
 
     implementation (libs.androidx.cardview)
+
+    val room_version = "2.6.1"
+    androidTestImplementation("androidx.room:room-testing:$room_version")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC.2")
 }
