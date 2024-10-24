@@ -24,4 +24,5 @@ interface BarangDao {
 
     @Query("SELECT * FROM barang WHERE id = :barangId")
     fun getBarangById(barangId: Long): LiveData<Barang>
+
 }
