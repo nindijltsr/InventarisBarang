@@ -1,5 +1,6 @@
 package com.example.inventarisbarang
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showAddBarangDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_barang, null)
 
@@ -98,8 +100,12 @@ class MainActivity : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this)
             .setTitle("Add Barang")
             .setView(dialogView)
-            .setNegativeButton("Cancel", null)
+            .setCancelable(true)
             .create()
+
+        dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialogView.findViewById<Button>(R.id.button_save).setOnClickListener {
             val editNama = dialogView.findViewById<EditText>(R.id.edit_nama)
@@ -140,14 +146,19 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showAddKaryawanDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_karyawan, null)
 
         val dialog = AlertDialog.Builder(this)
             .setTitle("Add Karyawan")
             .setView(dialogView)
-            .setNegativeButton("Cancel", null)
+            .setCancelable(true)
             .create()
+
+        dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialogView.findViewById<Button>(R.id.button_save).setOnClickListener {
             val editNama = dialogView.findViewById<EditText>(R.id.edit_namaKaryawan)
@@ -172,14 +183,19 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showAddRuanganDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_ruangan, null)
 
         val dialog = AlertDialog.Builder(this)
             .setTitle("Add Ruangan")
             .setView(dialogView)
-            .setNegativeButton("Cancel", null)
+            .setCancelable(true)
             .create()
+
+        dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialogView.findViewById<Button>(R.id.button_save).setOnClickListener {
             val editLokasi = dialogView.findViewById<EditText>(R.id.edit_lokasi)
@@ -200,6 +216,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showEditBarangDialog(barang: Barang) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_barang, null)
 
@@ -249,8 +266,12 @@ class MainActivity : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this)
             .setTitle("Edit Barang")
             .setView(dialogView)
-            .setNegativeButton("Cancel", null)
+            .setCancelable(true)
             .create()
+
+        dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
+            dialog.dismiss()
+        }
 
 
         dialogView.findViewById<Button>(R.id.button_save).setOnClickListener {
@@ -282,7 +303,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
-
         dialog.show()
     }
 
