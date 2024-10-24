@@ -74,7 +74,7 @@ dependencies {
 
     implementation (libs.androidx.cardview)
 
-    val room_version = "2.6.1"
-    androidTestImplementation("androidx.room:room-testing:$room_version")
+//    val room_version = "2.6.1"
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC.2")
 }

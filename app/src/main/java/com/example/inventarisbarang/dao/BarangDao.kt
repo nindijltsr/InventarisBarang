@@ -11,7 +11,7 @@ import com.example.inventarisbarang.entity.Barang
 @Dao
 interface BarangDao {
     @Insert
-    fun insert(barang: Barang)
+    suspend fun insert(barang: Barang)
 
     @Update
     suspend fun update(barang: Barang)
