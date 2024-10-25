@@ -1,9 +1,6 @@
 package com.example.inventarisbarang
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -84,7 +81,8 @@ class MainActivity : AppCompatActivity() {
         // Mengisi spinnerRuangan dengan data Ruangan
         inventarisViewModel.allRuangan.observe(this, { ruanganList ->
             val ruanganNames = ruanganList.map { it.namaRuangan }
-            val ruanganAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ruanganNames)
+            val ruanganAdapter =
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, ruanganNames)
             ruanganAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerRuangan.adapter = ruanganAdapter
         })
@@ -92,7 +90,8 @@ class MainActivity : AppCompatActivity() {
         // Mengisi spinnerKaryawan dengan data Karyawan
         inventarisViewModel.allKaryawan.observe(this, { karyawanList ->
             val karyawanNames = karyawanList.map { it.namaKaryawan }
-            val karyawanAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, karyawanNames)
+            val karyawanAdapter =
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, karyawanNames)
             karyawanAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerKaryawan.adapter = karyawanAdapter
         })
@@ -125,8 +124,12 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val ruanganId = inventarisViewModel.allRuangan.value?.get(spinnerRuangan.selectedItemPosition)?.id ?: 0
-            val karyawanId = inventarisViewModel.allKaryawan.value?.get(spinnerKaryawan.selectedItemPosition)?.id ?: 0
+            val ruanganId =
+                inventarisViewModel.allRuangan.value?.get(spinnerRuangan.selectedItemPosition)?.id
+                    ?: 0
+            val karyawanId =
+                inventarisViewModel.allKaryawan.value?.get(spinnerKaryawan.selectedItemPosition)?.id
+                    ?: 0
 
             val barang = Barang(
                 nama = nama,
@@ -238,7 +241,8 @@ class MainActivity : AppCompatActivity() {
         // Mengisi spinnerRuangan dengan data Ruangan
         inventarisViewModel.allRuangan.observe(this, { ruanganList ->
             val ruanganNames = ruanganList.map { it.namaRuangan }
-            val ruanganAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ruanganNames)
+            val ruanganAdapter =
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, ruanganNames)
             ruanganAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerRuangan.adapter = ruanganAdapter
 
@@ -252,7 +256,8 @@ class MainActivity : AppCompatActivity() {
         // Mengisi spinnerKaryawan dengan data Karyawan
         inventarisViewModel.allKaryawan.observe(this, { karyawanList ->
             val karyawanNames = karyawanList.map { it.namaKaryawan }
-            val karyawanAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, karyawanNames)
+            val karyawanAdapter =
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, karyawanNames)
             karyawanAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerKaryawan.adapter = karyawanAdapter
 
@@ -286,8 +291,12 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val ruanganId = inventarisViewModel.allRuangan.value?.get(spinnerRuangan.selectedItemPosition)?.id ?: 0
-            val karyawanId = inventarisViewModel.allKaryawan.value?.get(spinnerKaryawan.selectedItemPosition)?.id ?: 0
+            val ruanganId =
+                inventarisViewModel.allRuangan.value?.get(spinnerRuangan.selectedItemPosition)?.id
+                    ?: 0
+            val karyawanId =
+                inventarisViewModel.allKaryawan.value?.get(spinnerKaryawan.selectedItemPosition)?.id
+                    ?: 0
 
             val updatedBarang = barang.copy(
                 nama = nama,
@@ -355,6 +364,4 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
-
-
 }

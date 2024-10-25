@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventarisbarang.entity.Barang
+import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
 class BarangAdapter(
@@ -17,6 +18,7 @@ class BarangAdapter(
     private val viewModel: InventarisViewModel // Tambahkan parameter kedua untuk ViewModel
 ) : RecyclerView.Adapter<BarangAdapter.BarangViewHolder>() {
     private var barangList = emptyList<Barang>()
+    private var karyawanList = emptyList<Karyawan>()
 
     inner class BarangViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val namaTextView: TextView = itemView.findViewById(R.id.nama_text_view)
@@ -56,4 +58,5 @@ class BarangAdapter(
         this.barangList = barangs
         notifyDataSetChanged()
     }
+
 }

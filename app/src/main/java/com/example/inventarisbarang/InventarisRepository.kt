@@ -42,14 +42,6 @@ class InventarisRepository(
         ruanganDao.insert(ruangan)
     }
 
-    suspend fun update(ruangan: Ruangan) {
-        ruanganDao.update(ruangan)
-    }
-
-    suspend fun delete(ruangan: Ruangan) {
-        ruanganDao.delete(ruangan)
-    }
-
 //    fun getAllRuangan(): LiveData<List<Ruangan>> {
 //        return ruanganDao.getAllRuangan()
 //    }
@@ -60,14 +52,6 @@ class InventarisRepository(
 //Karyawan
     suspend fun insert(karyawan: Karyawan) {
         karyawanDao.insert(karyawan)
-    }
-
-    suspend fun update(karyawan: Karyawan) {
-        karyawanDao.update(karyawan)
-    }
-
-    suspend fun delete(karyawan: Karyawan) {
-        karyawanDao.delete(karyawan)
     }
 
 //    fun getAllKaryawan(): LiveData<List<Karyawan>> {
