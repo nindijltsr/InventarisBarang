@@ -22,13 +22,13 @@
 
     <Button
         android:id="@+id/button_next"
-        android:layout_width="116dp"
-        android:layout_height="65dp"
+        android:layout_width="109dp"
+        android:layout_height="57dp"
         android:layout_marginBottom="100dp"
         android:backgroundTint="@color/OceanBlue"
         android:text="Next"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -80,11 +80,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Save"
         android:backgroundTint="@color/DarkBlue"
+        android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.237"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_karyawan" />
 
     <Button
@@ -94,9 +92,8 @@
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/DarkBlue"
         android:text="Kembali"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.393"
-
-        app:layout_constraintStart_toEndOf="@+id/button_save"
+        app:layout_constraintEnd_toStartOf="@+id/button_save"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_karyawan" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,11 +79,10 @@
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/DarkBlue"
             android:text="Simpan"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_karyawan" />
 
         <Button
@@ -93,9 +92,9 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/DarkBlue"
             android:text="Kembali"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.856"
-            app:layout_constraintStart_toEndOf="@+id/button_save"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintEnd_toStartOf="@+id/button_save"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_karyawan" />
 
 

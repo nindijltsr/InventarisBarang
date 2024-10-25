@@ -43,7 +43,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/DarkBlue"
         android:text="Simpan"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_kontak" />
 
     <Button
@@ -53,9 +53,9 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/DarkBlue"
         android:text="Kembali"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.822"
-        app:layout_constraintStart_toEndOf="@+id/button_save"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintEnd_toStartOf="@id/button_save"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_kontak" />
 
 
