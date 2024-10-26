@@ -46,10 +46,10 @@ class DatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun insertAndRetrieveBarang(){
+    fun deleteAndRemoveBarang(){
         BarangDao.insert(barang)
+        BarangDao.delete(barang)
         val result = BarangDao.getAll()
-        assert(result.size == 1)
+        assert(result.isEmpty())
     }
-
 }

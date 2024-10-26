@@ -119,17 +119,18 @@ class MainActivity : AppCompatActivity() {
             val tanggalMasuk = editTanggalMasuk.text.toString()
             val kondisi = editKondisi.text.toString()
 
-            if (nama.isBlank() || kategori.isBlank() || tanggalMasuk.isBlank() || kondisi.isBlank()) {
-                Toast.makeText(this, "Mohon isi semua kolom", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             val ruanganId =
                 inventarisViewModel.allRuangan.value?.get(spinnerRuangan.selectedItemPosition)?.id
                     ?: 0
             val karyawanId =
                 inventarisViewModel.allKaryawan.value?.get(spinnerKaryawan.selectedItemPosition)?.id
                     ?: 0
+
+            if (nama.isBlank() || kategori.isBlank() || tanggalMasuk.isBlank() || kondisi.isBlank()) {
+                Toast.makeText(this, "Mohon isi semua kolom", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
 
             val barang = Barang(
                 nama = nama,

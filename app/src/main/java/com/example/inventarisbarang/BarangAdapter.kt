@@ -14,6 +14,7 @@ import com.example.inventarisbarang.viewmodel.InventarisViewModel
 class BarangAdapter(
     private val onItemClickListener: (Barang) -> Unit, // Callback untuk item click
     private val editClickListener: (Barang) -> Unit, // Callback untuk tombol edit
+//    private val deleteClickListener: (Barang) -> Unit, // Callback untuk tombol delete
     private val viewModel: InventarisViewModel // Parameter ViewModel untuk mengelola data
 ) : RecyclerView.Adapter<BarangAdapter.BarangViewHolder>() { // Menurunkan dari RecyclerView.Adapter
     private var barangList = emptyList<Barang>() // Inisialisasi daftar barang kosong
