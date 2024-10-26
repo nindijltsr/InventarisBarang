@@ -14,7 +14,6 @@ import com.example.inventarisbarang.viewmodel.InventarisViewModel
 class AddBarangActivity : AppCompatActivity() {
 
     private lateinit var inventarisViewModel: InventarisViewModel
-
     // Variabel untuk komponen UI
     private lateinit var editNama: EditText
     private lateinit var editKategori: EditText
