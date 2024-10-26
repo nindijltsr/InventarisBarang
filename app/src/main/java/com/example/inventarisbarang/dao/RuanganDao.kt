@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
 
 @Dao
@@ -16,4 +17,7 @@ interface RuanganDao {
 
     @Query("SELECT * FROM ruangan WHERE id = :ruanganId")
     fun getRuanganById(ruanganId: Long): LiveData<Ruangan>
+
+    @Query("SELECT * FROM ruangan")
+    fun getAll(): Array<Ruangan>
 }
