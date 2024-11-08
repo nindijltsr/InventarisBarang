@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventarisbarang.entity.Barang
@@ -54,5 +55,18 @@ class BarangAdapter(
     // Fungsi untuk memperbarui data barang di RecyclerView
     internal fun setBarang(barangs: List<Barang>) {
         submitList(barangs) // Gunakan submitList dari ListAdapter untuk memperbarui data
+    }
+
+    class BarangCallback: DiffUtil.ItemCallback<Barang>() {
+        override fun areItemsTheSame(oldItem: Barang, newItem: Barang): Boolean {
+            // Bandingkan item berdasarkan ID
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Barang, newItem: Barang): Boolean {
+            // Bandingkan isi item untuk memastikan mereka benar-benar sama
+            return oldItem == newItem
+        }
+
     }
 }
