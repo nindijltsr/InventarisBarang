@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventarisbarang.entity.Barang
+import com.example.inventarisbarang.extension.toUnit
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
+
 
 // Deklarasi kelas BarangAdapter sebagai Adapter untuk RecyclerView
 class BarangAdapter(
@@ -36,7 +38,8 @@ class BarangAdapter(
         val currentBarang = getItem(position) // Gunakan getItem dari ListAdapter
         holder.namaTextView.text = currentBarang.nama
         holder.kategoriTextView.text = "Kategori: ${currentBarang.kategori}"
-        holder.jumlahTextView.text = "Jumlah: ${currentBarang.jumlah} Unit"
+        holder.jumlahTextView.text = "Jumlah: ${currentBarang.jumlah.toUnit()}" //extension function Unit
+
         holder.itemView.setOnClickListener {
             onItemClickListener(currentBarang)
         }
