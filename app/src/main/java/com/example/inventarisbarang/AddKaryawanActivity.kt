@@ -21,7 +21,7 @@ class AddKaryawanActivity : AppCompatActivity() {
 
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
 
-        editNama = findViewById(R.id.edit_namaKaryawan)
+        editNama = findViewById(R.id.edit_nama_karyawan)
         editJabatan = findViewById(R.id.edit_jabatan)
         editKontak = findViewById(R.id.edit_kontak)
 

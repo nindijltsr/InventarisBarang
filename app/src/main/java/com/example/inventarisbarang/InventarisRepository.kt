@@ -37,6 +37,12 @@ class InventarisRepository(
     suspend fun insert(ruangan: Ruangan) {
         ruanganDao.insert(ruangan)
     }
+    suspend fun delete(ruangan: Ruangan) {
+        ruanganDao.delete(ruangan)
+    }
+    suspend fun update(ruangan: Ruangan) {
+        ruanganDao.update(ruangan)
+    }
 
     fun getRuanganById(ruanganId: Long): LiveData<Ruangan> {
         return ruanganDao.getRuanganById(ruanganId)
@@ -44,6 +50,14 @@ class InventarisRepository(
 //Karyawan
     suspend fun insert(karyawan: Karyawan) {
         karyawanDao.insert(karyawan)
+    }
+
+    suspend fun delete(karyawan: Karyawan) {
+        karyawanDao.delete(karyawan)
+    }
+
+    suspend fun update(karyawan: Karyawan) {
+        karyawanDao.update(karyawan)
     }
 
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {

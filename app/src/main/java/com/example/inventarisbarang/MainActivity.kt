@@ -19,8 +19,10 @@ import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
-import androidx.lifecycle.Observer
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.GridLayoutManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,41 +36,190 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.DarkBlue)
-
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
 
-        barangAdapter = BarangAdapter({ barang ->
-            showDetailBarangDialog(barang)
-        }, { barang ->
-            showEditBarangDialog(barang)
-        }, inventarisViewModel)
+        barangAdapter = BarangAdapter(
+            onItemClickListener = { barang ->
+                showDetailBarangDialog(barang)
+            },
+            editClickListener = { barang ->
+                showEditBarangDialog(barang)
+            },
+            karyawanEditClickListener = { karyawan ->
+                showEditKaryawanDialog(karyawan)
+            },
+            karyawanItemClickListener = { karyawan ->
+                showDetailKaryawanDialog(karyawan)
+            },
+            ruanganEditClickListener = { ruangan ->
+                showEditRuanganDialog(ruangan)
+            },
+            viewModel = inventarisViewModel
+        )
 
         // Set up RecyclerView with adapter and layout manager
-        val recyclerView = binding.recyclerView
-        recyclerView.adapter = barangAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.apply {
+            adapter = barangAdapter
 
-        // Observe data barang dari ViewModel
-        inventarisViewModel.allBarang.observe(this, { barangs ->
-            if (barangs != null) {
-                barangAdapter.setBarang(barangs)
-                Log.d("MainActivity", "Data barang diobservasi: $barangs")
-            }
-        })
+            inventarisViewModel.allBarang.observe(this@MainActivity, { barangs ->
+                inventarisViewModel.allKaryawan.observe(this@MainActivity, { karyawans ->
+                    inventarisViewModel.allRuangan.observe(this@MainActivity, { ruanganList ->
+                        val itemList = mutableListOf<Any>()
+                        itemList.add("Daftar Barang")
+                        itemList.addAll(barangs) // Menambahkan barang
+                        itemList.add("Daftar Karyawan")
+                        itemList.addAll(karyawans) // Menambahkan karyawan
+                        itemList.add("Daftar Ruangan")
+                        itemList.addAll(ruanganList) // Menambahkan ruangan
+
+                        barangAdapter.submitList(itemList)
+
+                        // Mengatur GridLayoutManager dengan SpanSizeLookup
+                        val gridLayoutManager = GridLayoutManager(this@MainActivity, 2)
+                        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                            override fun getSpanSize(position: Int): Int {
+                                return when (itemList[position]) {
+                                    "Daftar Barang", "Daftar Karyawan", "Daftar Ruangan" -> 2 // Header mengambil 2 kolom penuh
+                                    else -> if (itemList[position] in ruanganList) 1 else 2 // Item ruangan 1 kolom, lainnya 2 kolom
+                                }
+                            }
+                        }
+
+                        layoutManager = gridLayoutManager
+                    })
+                })
+            })
+        }
+
+
+
+        // Observe data barang dari ViewModel dan perbarui list
 
         // Set up button listeners
         binding.buttonAdd.setOnClickListener {
             showAddBarangDialog()
         }
-
         binding.buttonAddRuangan.setOnClickListener {
             showAddRuanganDialog()
         }
-
         binding.buttonAddKaryawan.setOnClickListener {
             showAddKaryawanDialog()
         }
+    }
 
+    @SuppressLint("MissingInflatedId")
+    private fun showEditRuanganDialog(ruangan: Ruangan) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_edit_ruangan, null)
+
+        val editNama = dialogView.findViewById<EditText>(R.id.edit_nama_ruangan)
+
+        // Set data barang ke EditText
+        editNama.setText(ruangan.namaRuangan)
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Edit Ruangan")
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        dialogView.findViewById<Button>(R.id.button_save).setOnClickListener {
+            val nama = editNama.text.toString()
+
+            if (nama.isBlank()) {
+                Toast.makeText(this, "Mohon isi semua kolom", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+
+            val updatedRuangan = ruangan.copy(
+                namaRuangan = nama
+            )
+
+            inventarisViewModel.updateRuangan(updatedRuangan)
+            Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun showDetailKaryawanDialog(karyawan: Karyawan) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_detail_karyawan, null)
+
+        val textNama = dialogView.findViewById<TextView>(R.id.textNama)
+        val textJabatan = dialogView.findViewById<TextView>(R.id.textJabatan)
+        val textKontak = dialogView.findViewById<TextView>(R.id.textKontak)
+
+        textNama.text = "Nama Barang: ${karyawan.namaKaryawan}"
+        textJabatan.text = "Kategori: ${karyawan.jabatan}"
+        textKontak.text = "Jumlah: ${karyawan.kontak}"
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Detail Barang")
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun showEditKaryawanDialog(karyawan: Karyawan) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_add_karyawan, null)
+
+        val editNama = dialogView.findViewById<EditText>(R.id.edit_nama_karyawan)
+        val editJabatan = dialogView.findViewById<EditText>(R.id.edit_jabatan)
+        val editKontak = dialogView.findViewById<EditText>(R.id.edit_kontak)
+
+        // Set data barang ke EditText
+        editNama.setText(karyawan.namaKaryawan)
+        editJabatan.setText(karyawan.jabatan)
+        editKontak.setText(karyawan.kontak)
+
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Edit Karyawan")
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        dialogView.findViewById<Button>(R.id.button_save).setOnClickListener {
+            val nama = editNama.text.toString()
+            val jabatan = editJabatan.text.toString()
+            val kontak = editKontak.text.toString()
+
+
+            if (nama.isBlank() || jabatan.isBlank() || kontak.isBlank()) {
+                Toast.makeText(this, "Mohon isi semua kolom", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+
+            val updatedKaryawan = karyawan.copy(
+                namaKaryawan = nama,
+                jabatan = jabatan,
+                kontak = kontak
+            )
+
+            inventarisViewModel.updateKaryawan(updatedKaryawan)
+            Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     @SuppressLint("MissingInflatedId")
@@ -141,7 +292,6 @@ class MainActivity : AppCompatActivity() {
                 ruanganId = ruanganId,
                 karyawanId = karyawanId
             )
-
             inventarisViewModel.insertBarang(barang)
             Toast.makeText(this, "Barang added!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -165,7 +315,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialogView.findViewById<Button>(R.id.button_save).setOnClickListener {
-            val editNama = dialogView.findViewById<EditText>(R.id.edit_namaKaryawan)
+            val editNama = dialogView.findViewById<EditText>(R.id.edit_nama_karyawan)
             val editJabatan = dialogView.findViewById<EditText>(R.id.edit_jabatan)
             val editKontak = dialogView.findViewById<EditText>(R.id.edit_kontak)
 

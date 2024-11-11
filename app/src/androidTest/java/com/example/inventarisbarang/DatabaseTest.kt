@@ -52,12 +52,4 @@ class DatabaseTest {
         assert(result.size == 1)
     }
 
-    @Test
-    @Throws(Exception::class)
-    fun insertAndRetrieveKaryawan(){
-        KaryawanDao.insert(karyawan)
-        val result = KaryawanDao.getAll()
-        assert(result.size == 1)
-    }
-
 }

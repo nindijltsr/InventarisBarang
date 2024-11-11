@@ -2,8 +2,10 @@ package com.example.inventarisbarang.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
 
@@ -11,6 +13,12 @@ import com.example.inventarisbarang.entity.Ruangan
 interface RuanganDao {
     @Insert
     suspend fun insert(ruangan: Ruangan)
+
+    @Update
+    suspend fun update(ruangan: Ruangan)
+
+    @Delete
+    suspend fun delete(ruangan: Ruangan)
 
     @Query("SELECT * FROM ruangan")
     fun getAllRuangan(): LiveData<List<Ruangan>>

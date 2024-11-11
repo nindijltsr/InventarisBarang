@@ -53,6 +53,13 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
     fun insertRuangan(ruangan: Ruangan) = viewModelScope.launch {
         repository.insert(ruangan)
     }
+    fun updateRuangan(ruangan: Ruangan) = viewModelScope.launch {
+        repository.update(ruangan)
+    }
+
+    fun deleteRuangan(ruangan: Ruangan) = viewModelScope.launch {
+        repository.delete(ruangan)
+    }
 
     fun getRuanganById(ruanganId: Long): LiveData<Ruangan> {
         return repository.getRuanganById(ruanganId)
@@ -61,6 +68,14 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
     // Karyawan
     fun insertKaryawan(karyawan: Karyawan) = viewModelScope.launch {
         repository.insert(karyawan)
+    }
+
+    fun deleteKaryawan(karyawan: Karyawan) = viewModelScope.launch {
+        repository.delete(karyawan)
+    }
+
+    fun updateKaryawan(karyawan: Karyawan) = viewModelScope.launch {
+        repository.update(karyawan)
     }
 
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {

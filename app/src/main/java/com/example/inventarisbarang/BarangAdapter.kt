@@ -10,17 +10,43 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventarisbarang.entity.Barang
-import com.example.inventarisbarang.extension.toUnit
+import com.example.inventarisbarang.entity.Karyawan
+import com.example.inventarisbarang.entity.Ruangan
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
 
-
-// Deklarasi kelas BarangAdapter sebagai Adapter untuk RecyclerView
 class BarangAdapter(
-    private val onItemClickListener: (Barang) -> Unit, // Callback untuk item click
-    private val editClickListener: (Barang) -> Unit, // Callback untuk tombol edit
-//    private val deleteClickListener: (Barang) -> Unit, // Callback untuk tombol delete
-    private val viewModel: InventarisViewModel // Parameter ViewModel untuk mengelola data
-) : ListAdapter<Barang, BarangAdapter.BarangViewHolder>(BarangCallback()) { // Gunakan ListAdapter dengan DiffCallback
+    private val onItemClickListener: (Barang) -> Unit,
+    private val editClickListener: (Barang) -> Unit,
+    private val karyawanEditClickListener: (Karyawan) -> Unit,
+    private val karyawanItemClickListener: (Karyawan) -> Unit,
+    private val ruanganEditClickListener: (Ruangan) -> Unit,
+    private val viewModel: InventarisViewModel
+) : ListAdapter<Any, RecyclerView.ViewHolder>(BarangDiffCallback()) {
+
+    companion object {
+        private const val TYPE_HEADER = 0
+        private const val TYPE_BARANG = 1
+        private const val TYPE_KARYAWAN = 2
+        private const val TYPE_RUANGAN = 3
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (val item = getItem(position)) {
+            is String -> TYPE_HEADER  // Handle header type
+            is Barang -> TYPE_BARANG // Handle Barang type
+            is Karyawan -> TYPE_KARYAWAN // Handle Karyawan type
+            is Ruangan -> TYPE_RUANGAN // Handle Ruangan type
+            else -> throw IllegalArgumentException("Invalid item type")
+        }
+    }
+
+    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val headerTextView: TextView = itemView.findViewById(R.id.textViewHeader)
+
+        fun bind(header: String) {
+            headerTextView.text = header
+        }
+    }
 
     inner class BarangViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val namaTextView: TextView = itemView.findViewById(R.id.nama_text_view)
@@ -28,46 +54,114 @@ class BarangAdapter(
         val jumlahTextView: TextView = itemView.findViewById(R.id.jumlah_text_view)
         val buttonDelete: Button = itemView.findViewById(R.id.button_delete)
         val buttonEdit: Button = itemView.findViewById(R.id.button_edit)
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BarangViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.barang_item, parent, false)
-        return BarangViewHolder(itemView)
-    }
+        fun bind(barang: Barang) {
+            namaTextView.text = barang.nama
+            kategoriTextView.text = "Kategori: ${barang.kategori}"
+            jumlahTextView.text = "Jumlah: ${barang.jumlah} Unit"
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: BarangViewHolder, position: Int) {
-        val currentBarang = getItem(position) // Gunakan getItem dari ListAdapter
-        holder.namaTextView.text = currentBarang.nama
-        holder.kategoriTextView.text = "Kategori: ${currentBarang.kategori}"
-        holder.jumlahTextView.text = "Jumlah: ${currentBarang.jumlah.toUnit()}" //extension function Unit
-
-        holder.itemView.setOnClickListener {
-            onItemClickListener(currentBarang)
-        }
-        holder.buttonDelete.setOnClickListener {
-            viewModel.deleteBarang(currentBarang)
-        }
-        holder.buttonEdit.setOnClickListener {
-            editClickListener(currentBarang)
+            itemView.setOnClickListener {
+                onItemClickListener(barang)
+            }
+            buttonDelete.setOnClickListener {
+                viewModel.deleteBarang(barang)
+            }
+            buttonEdit.setOnClickListener {
+                editClickListener(barang)
+            }
         }
     }
 
-    // Fungsi untuk memperbarui data barang di RecyclerView
-    internal fun setBarang(barangs: List<Barang>) {
-        submitList(barangs) // Gunakan submitList dari ListAdapter untuk memperbarui data
+    inner class KaryawanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val namaTextView: TextView = itemView.findViewById(R.id.namaKaryawan)
+        val jabatanTextView: TextView = itemView.findViewById(R.id.jabatan)
+        val nomorTextView: TextView = itemView.findViewById(R.id.nomor)
+        val buttonDelete: Button = itemView.findViewById(R.id.button_delete)
+        val buttonEdit: Button = itemView.findViewById(R.id.button_edit)
+
+        fun bind(karyawan: Karyawan) {
+            namaTextView.text = karyawan.namaKaryawan
+            jabatanTextView.text = "Jabatan: ${karyawan.jabatan}"
+            nomorTextView.text = "Nomor: ${karyawan.kontak}"
+
+            itemView.setOnClickListener {
+                karyawanItemClickListener(karyawan)
+            }
+            buttonDelete.setOnClickListener {
+                viewModel.deleteKaryawan(karyawan)
+            }
+            buttonEdit.setOnClickListener {
+                karyawanEditClickListener(karyawan)
+            }
+        }
     }
 
-    class BarangCallback: DiffUtil.ItemCallback<Barang>() {
-        override fun areItemsTheSame(oldItem: Barang, newItem: Barang): Boolean {
-            // Bandingkan item berdasarkan ID
-            return oldItem.id == newItem.id
+    inner class ruanganViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val namaTextView: TextView = itemView.findViewById(R.id.namaRuangan)
+        val buttonDelete: Button = itemView.findViewById(R.id.button_delete)
+        val buttonEdit: Button = itemView.findViewById(R.id.button_edit)
+
+        fun bind(ruangan: Ruangan) {
+            namaTextView.text = ruangan.namaRuangan
+
+            buttonDelete.setOnClickListener {
+                viewModel.deleteRuangan(ruangan)
+            }
+            buttonEdit.setOnClickListener{
+                ruanganEditClickListener(ruangan)
+            }
         }
 
-        override fun areContentsTheSame(oldItem: Barang, newItem: Barang): Boolean {
-            // Bandingkan isi item untuk memastikan mereka benar-benar sama
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            TYPE_HEADER -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.header_item, parent, false)
+                HeaderViewHolder(view)
+            }
+            TYPE_BARANG -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.barang_item, parent, false)
+                BarangViewHolder(view)
+            }
+            TYPE_KARYAWAN -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.karyawan_item, parent, false)
+                KaryawanViewHolder(view)
+            }
+            TYPE_RUANGAN -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.ruangan_item, parent, false)
+                ruanganViewHolder(view)
+            }
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = getItem(position)
+        when (holder) {
+            is HeaderViewHolder -> holder.bind(item as String)
+            is BarangViewHolder -> holder.bind(item as Barang)
+            is KaryawanViewHolder -> holder.bind(item as Karyawan)
+            is ruanganViewHolder -> holder.bind(item as Ruangan)
+        }
+    }
+
+    class BarangDiffCallback : DiffUtil.ItemCallback<Any>() {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+            return if (oldItem is Barang && newItem is Barang) {
+                oldItem.id == newItem.id
+            } else if (oldItem is Karyawan && newItem is Karyawan) {
+                oldItem.id == newItem.id
+            } else if (oldItem is String && newItem is String) {
+                oldItem == newItem
+            } else {
+                false
+            }
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
             return oldItem == newItem
         }
-
     }
 }
