@@ -2,7 +2,6 @@ package com.example.inventarisbarang
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -13,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventarisbarang.databinding.ActivityMainBinding
 import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
@@ -21,7 +19,6 @@ import com.example.inventarisbarang.entity.Ruangan
 import com.example.inventarisbarang.viewmodel.InventarisViewModel
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.GridLayoutManager
 
 
@@ -155,12 +152,12 @@ class MainActivity : AppCompatActivity() {
         val textJabatan = dialogView.findViewById<TextView>(R.id.textJabatan)
         val textKontak = dialogView.findViewById<TextView>(R.id.textKontak)
 
-        textNama.text = "Nama Barang: ${karyawan.namaKaryawan}"
-        textJabatan.text = "Kategori: ${karyawan.jabatan}"
-        textKontak.text = "Jumlah: ${karyawan.kontak}"
+        textNama.text = "Nama Karyawan: ${karyawan.namaKaryawan}"
+        textJabatan.text = "Jabatan: ${karyawan.jabatan}"
+        textKontak.text = "Kontak: ${karyawan.kontak}"
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Detail Barang")
+            .setTitle("Detail Karyawan")
             .setView(dialogView)
             .setCancelable(true)
             .create()
@@ -216,7 +213,7 @@ class MainActivity : AppCompatActivity() {
             )
 
             inventarisViewModel.updateKaryawan(updatedKaryawan)
-            Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Karyawan updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
         dialog.show()
@@ -512,7 +509,6 @@ class MainActivity : AppCompatActivity() {
         dialogView.findViewById<Button>(R.id.button_back).setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
     }
 }

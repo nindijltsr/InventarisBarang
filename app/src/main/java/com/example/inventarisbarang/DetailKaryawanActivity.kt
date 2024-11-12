@@ -29,10 +29,10 @@ class DetailKaryawanActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Mendapatkan barang ID yang dikirim dari activity sebelumnya melalui Intent
-        val barangId = intent.getLongExtra("BARANG_ID", 0)
+        val karyawanId = intent.getLongExtra("KARYAWAN_ID", 0)
 
         // Mengamati LiveData yang berisi data barang berdasarkan ID yang didapat
-        inventarisViewModel.getKaryawanById(barangId).observe(this, Observer { karyawan ->
+        inventarisViewModel.getKaryawanById(karyawanId).observe(this, Observer { karyawan ->
             karyawan?.let {
                 // Jika data barang ditemukan, tampilkan detail barang di UI
                 displayKaryawanDetails(it)
@@ -57,9 +57,9 @@ class DetailKaryawanActivity : AppCompatActivity() {
             Log.d("DetailKaryawanActivity", "Menampilkan karyawan: ${karyawan.namaKaryawan}")
 
             // Mengatur teks untuk setiap TextView dengan informasi dari objek barang
-            textNama.text = "Nama Barang: ${karyawan.namaKaryawan}"
-            textJabatan.text = "Kategori: ${karyawan.jabatan}"
-            textKontak.text = "Jumlah: ${karyawan.kontak}"
+            textNama.text = "Nama Karyawan: ${karyawan.namaKaryawan}"
+            textJabatan.text = "Jabatan: ${karyawan.jabatan}"
+            textKontak.text = "Kontak: ${karyawan.kontak}"
 
         }
     }
