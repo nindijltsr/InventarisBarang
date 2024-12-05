@@ -8,7 +8,6 @@ import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
 import com.google.firebase.database.FirebaseDatabase
-import java.util.UUID
 
 class InventarisRepository(
     private val barangDao: BarangDao,
