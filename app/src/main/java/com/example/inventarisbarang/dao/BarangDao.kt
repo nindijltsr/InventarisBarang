@@ -23,7 +23,7 @@ interface BarangDao {
     fun getAllBarang(): LiveData<List<Barang>>
 
     @Query("SELECT * FROM barang WHERE id = :barangId")
-    fun getBarangById(barangId: Long): LiveData<Barang>
+    fun getBarangById(barangId: String): LiveData<Barang>
 
     @Query("SELECT * FROM barang")
     fun getAll(): Array<Barang>
