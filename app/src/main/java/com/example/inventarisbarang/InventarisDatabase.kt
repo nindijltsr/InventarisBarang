@@ -48,5 +48,4 @@ abstract class InventarisDatabase : RoomDatabase() {
             }
         }
     }
-
 }

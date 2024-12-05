@@ -32,16 +32,30 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
 
     // Barang
     fun insertBarang(barang: Barang) = viewModelScope.launch {
-        repository.insert(barang)
-        Log.d("InventarisViewModel", "Barang disimpan: $barang")
+        try {
+            repository.insert(barang) // Inserts into Room and Firebase
+            Log.d("InventarisViewModel", "Barang disimpan: $barang")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal menyimpan barang: ${e.message}")
+        }
     }
 
     fun updateBarang(barang: Barang) = viewModelScope.launch {
-        repository.update(barang)
+        try {
+            repository.update(barang) // Updates both Room and Firebase
+            Log.d("InventarisViewModel", "Barang diperbarui: $barang")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal memperbarui barang: ${e.message}")
+        }
     }
 
     fun deleteBarang(barang: Barang) = viewModelScope.launch {
-        repository.delete(barang)
+        try {
+            repository.delete(barang) // Deletes from Room and Firebase
+            Log.d("InventarisViewModel", "Barang dihapus: $barang")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal menghapus barang: ${e.message}")
+        }
     }
 
     fun getBarangById(barangId: Long): LiveData<Barang> {
@@ -51,14 +65,30 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
 
     // Ruangan
     fun insertRuangan(ruangan: Ruangan) = viewModelScope.launch {
-        repository.insert(ruangan)
+        try {
+            repository.insert(ruangan) // Inserts into Room and Firebase
+            Log.d("InventarisViewModel", "Ruangan disimpan: $ruangan")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal menyimpan ruangan: ${e.message}")
+        }
     }
+
     fun updateRuangan(ruangan: Ruangan) = viewModelScope.launch {
-        repository.update(ruangan)
+        try {
+            repository.update(ruangan) // Updates both Room and Firebase
+            Log.d("InventarisViewModel", "Ruangan diperbarui: $ruangan")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal memperbarui ruangan: ${e.message}")
+        }
     }
 
     fun deleteRuangan(ruangan: Ruangan) = viewModelScope.launch {
-        repository.delete(ruangan)
+        try {
+            repository.delete(ruangan) // Deletes from Room and Firebase
+            Log.d("InventarisViewModel", "Ruangan dihapus: $ruangan")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal menghapus ruangan: ${e.message}")
+        }
     }
 
     fun getRuanganById(ruanganId: Long): LiveData<Ruangan> {
@@ -67,15 +97,30 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
 
     // Karyawan
     fun insertKaryawan(karyawan: Karyawan) = viewModelScope.launch {
-        repository.insert(karyawan)
+        try {
+            repository.insert(karyawan) // Inserts into Room and Firebase
+            Log.d("InventarisViewModel", "Karyawan disimpan: $karyawan")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal menyimpan karyawan: ${e.message}")
+        }
     }
 
     fun deleteKaryawan(karyawan: Karyawan) = viewModelScope.launch {
-        repository.delete(karyawan)
+        try {
+            repository.delete(karyawan) // Deletes from Room and Firebase
+            Log.d("InventarisViewModel", "Karyawan dihapus: $karyawan")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal menghapus karyawan: ${e.message}")
+        }
     }
 
     fun updateKaryawan(karyawan: Karyawan) = viewModelScope.launch {
-        repository.update(karyawan)
+        try {
+            repository.update(karyawan) // Updates both Room and Firebase
+            Log.d("InventarisViewModel", "Karyawan diperbarui: $karyawan")
+        } catch (e: Exception) {
+            Log.e("InventarisViewModel", "Gagal memperbarui karyawan: ${e.message}")
+        }
     }
 
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {

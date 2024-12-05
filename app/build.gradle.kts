@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -42,6 +43,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.firebase.database)
+    val room_version = "2.6.1"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -55,10 +58,9 @@ dependencies {
 //    implementation (libs.androidx.constraintlayout.v204)
 
     //Room
-    implementation(libs.androidx.room.runtime)
-//    implementation(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
     //view model , live data
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -71,10 +73,10 @@ dependencies {
 
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.activity.activity.ktx)
-
     implementation (libs.androidx.cardview)
 
-//    val room_version = "2.6.1"
     androidTestImplementation("androidx.room:room-testing:2.6.1")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC.2")
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    androidTestImplementation(libs.androidx.espresso.core)
 }
