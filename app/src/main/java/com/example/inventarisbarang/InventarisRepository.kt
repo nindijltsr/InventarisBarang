@@ -28,6 +28,12 @@ class InventarisRepository(
     // Barang CRUD
     suspend fun insert(barang: Barang) {
         try {
+            val existingBarang = barangRef.child(barang.nama).get().await()
+            if (existingBarang.exists()) {
+                Log.e("Repository", "Barang dengan nama ${barang.nama} sudah ada di Firebase")
+                return // Exit to prevent duplication
+            }
+
             // Generate unique ID for Firebase
             val barangList = barangRef.get().await().children
             val newId = (barangList.count() + 1).toLong() // Set ID locally (for Room)
@@ -38,7 +44,7 @@ class InventarisRepository(
             barangDao.insert(barang)
 
             // Insert into Firebase
-            barangRef.child(newId.toString()).setValue(barang).await()
+            barangRef.child(barang.nama).setValue(barang).await()
             Log.d("Repository", "Barang berhasil ditambahkan ke Firebase: $barang")
         } catch (e: Exception) {
             Log.e("Repository", "Gagal menambahkan barang: ${e.message}")
@@ -51,20 +57,21 @@ class InventarisRepository(
             barangDao.update(barang)
 
             // Update Firebase
-            barangRef.child(barang.id.toString()).setValue(barang).await()
+            barangRef.child(barang.nama).setValue(barang).await()
             Log.d("Repository", "Barang berhasil diperbarui di Firebase: $barang")
         } catch (e: Exception) {
             Log.e("Repository", "Gagal memperbarui barang: ${e.message}")
         }
     }
 
-    suspend fun delete(barang: Barang) {
+
+        suspend fun delete(barang: Barang) {
         try {
             // Delete locally
             barangDao.delete(barang)
 
             // Delete from Firebase
-            barangRef.child(barang.id.toString()).removeValue().await()
+            barangRef.child(barang.nama).removeValue().await()
             Log.d("Repository", "Barang berhasil dihapus dari Firebase: $barang")
         } catch (e: Exception) {
             Log.e("Repository", "Gagal menghapus barang: ${e.message}")
@@ -78,13 +85,19 @@ class InventarisRepository(
     //Ruangan
     suspend fun insert(ruangan: Ruangan) {
         try {
+            val existingRuangan = ruanganRef.child(ruangan.namaRuangan).get().await()
+            if (existingRuangan.exists()) {
+                Log.e("Repository", "Ruangan dengan nama ${ruangan.namaRuangan} sudah ada di Firebase")
+                return
+            }
+
             val ruanganList = ruanganRef.get().await().children
             val newId = (ruanganList.count() + 1).toLong() // Set ID locally (for Room)
 
             ruangan.id = newId
 
             ruanganDao.insert(ruangan)
-            ruanganRef.child(newId.toString()).setValue(ruangan).await()
+            ruanganRef.child(ruangan.namaRuangan).setValue(ruangan).await()
             Log.d("Repository", "Ruangan berhasil ditambahkan ke Firebase: $ruangan")
         } catch (e: Exception) {
             Log.e("Repository", "Gagal menambahkan ruangan: ${e.message}")
@@ -94,19 +107,28 @@ class InventarisRepository(
 
     suspend fun update(ruangan: Ruangan) {
         try {
-            ruanganDao.update(ruangan)
-            ruanganRef.child(ruangan.id.toString()).setValue(ruangan).await()
-            Log.d("Repository", "Ruangan berhasil diperbarui di Firebase: $ruangan")
-        } catch (e: Exception) {
-            Log.e("Repository", "Gagal memperbarui ruangan: ${e.message}")
+            // Periksa apakah barang dengan nama tersebut ada di Firebase
+            val existingItem = ruanganRef.child(ruangan.namaRuangan).get().await()
+            if (existingItem.exists()) {
+                // Update di Room Database
+                ruanganDao.update(ruangan)
 
+                // Update di Firebase
+                ruanganRef.child(ruangan.namaRuangan).setValue(ruangan).await()
+                Log.d("Repository", "Karyawan berhasil diperbarui di Firebase: $ruangan")
+            } else {
+                // Karyawan tidak ditemukan di Firebase
+                Log.e("Repository", "Karyawan dengan namaRuangan ${ruangan.namaRuangan} tidak ditemukan di Firebase.")
+            }
+        } catch (e: Exception) {
+            Log.e("Repository", "Gagal memperbarui karyawan: ${e.message}")
         }
     }
 
     suspend fun delete(ruangan: Ruangan) {
         try {
             ruanganDao.delete(ruangan)
-            ruanganRef.child(ruangan.id.toString()).removeValue().await()
+            ruanganRef.child(ruangan.namaRuangan).removeValue().await()
             Log.d("Repository", "Ruangan berhasil dihapus dari Firebase: $ruangan")
         }
         catch (e: Exception) {
@@ -122,13 +144,19 @@ class InventarisRepository(
     //Karyawan
     suspend fun insert(karyawan: Karyawan) {
         try {
+            val existingKaryawan = karyawanRef.child(karyawan.namaKaryawan).get().await()
+            if (existingKaryawan.exists()) {
+                Log.e("Repository", "Karyawan dengan nama ${karyawan.namaKaryawan} sudah ada di Firebase")
+                return
+            }
+
             val karyawanList = karyawanRef.get().await().children
             val newId = (karyawanList.count() + 1).toLong() // Set ID locally (for Room)
 
             karyawan.id = newId
 
             karyawanDao.insert(karyawan)
-            karyawanRef.child(newId.toString()).setValue(karyawan).await()
+            karyawanRef.child(karyawan.namaKaryawan).setValue(karyawan).await()
             Log.d("Repository", "Karyawan berhasil ditambahkan ke Firebase: $karyawan")
         }
         catch (e: Exception) {
@@ -138,9 +166,19 @@ class InventarisRepository(
 
     suspend fun update(karyawan: Karyawan) {
         try {
-            karyawanDao.update(karyawan)
-            karyawanRef.child(karyawan.id.toString()).setValue(karyawan).await()
-            Log.d("Repository", "Karyawan berhasil diperbarui di Firebase: $karyawan")
+            // Periksa apakah barang dengan nama tersebut ada di Firebase
+            val existingItem = karyawanRef.child(karyawan.namaKaryawan).get().await()
+            if (existingItem.exists()) {
+                // Update di Room Database
+                karyawanDao.update(karyawan)
+
+                // Update di Firebase
+                karyawanRef.child(karyawan.namaKaryawan).setValue(karyawan).await()
+                Log.d("Repository", "Karyawan berhasil diperbarui di Firebase: $karyawan")
+            } else {
+                // Karyawan tidak ditemukan di Firebase
+                Log.e("Repository", "Karyawan dengan namaKaryawan ${karyawan.namaKaryawan} tidak ditemukan di Firebase.")
+            }
         } catch (e: Exception) {
             Log.e("Repository", "Gagal memperbarui karyawan: ${e.message}")
         }
@@ -149,7 +187,7 @@ class InventarisRepository(
     suspend fun delete(karyawan: Karyawan) {
         try {
             karyawanDao.delete(karyawan)
-            karyawanRef.child(karyawan.id.toString()).removeValue().await()
+            karyawanRef.child(karyawan.namaKaryawan).removeValue().await()
             Log.d("Repository", "Karyawan berhasil dihapus dari Firebase: $karyawan")
         }
         catch (e: Exception) {

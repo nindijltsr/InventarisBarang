@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         window.statusBarColor = ContextCompat.getColor(this, R.color.DarkBlue)
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
 
@@ -60,26 +61,34 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             adapter = barangAdapter
 
+            // Observe LiveData from ViewModel
             inventarisViewModel.allBarang.observe(this@MainActivity, { barangs ->
                 inventarisViewModel.allKaryawan.observe(this@MainActivity, { karyawans ->
                     inventarisViewModel.allRuangan.observe(this@MainActivity, { ruanganList ->
+
+                        // Combine data into a single list with headers
                         val itemList = mutableListOf<Any>()
                         itemList.add("Daftar Barang")
-                        itemList.addAll(barangs) // Menambahkan barang
+                        itemList.addAll(barangs)
                         itemList.add("Daftar Karyawan")
-                        itemList.addAll(karyawans) // Menambahkan karyawan
+                        itemList.addAll(karyawans)
                         itemList.add("Daftar Ruangan")
-                        itemList.addAll(ruanganList) // Menambahkan ruangan
+                        itemList.addAll(ruanganList)
 
                         barangAdapter.submitList(itemList)
 
-                        // Mengatur GridLayoutManager dengan SpanSizeLookup
+                        // Configure GridLayoutManager with SpanSizeLookup
                         val gridLayoutManager = GridLayoutManager(this@MainActivity, 2)
                         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                             override fun getSpanSize(position: Int): Int {
+                                // Validate position to prevent IndexOutOfBoundsException
+                                if (position >= itemList.size) {
+                                    return 2 // Default span size in case of an invalid position
+                                }
+
                                 return when (itemList[position]) {
-                                    "Daftar Barang", "Daftar Karyawan", "Daftar Ruangan" -> 2 // Header mengambil 2 kolom penuh
-                                    else -> if (itemList[position] in ruanganList) 1 else 2 // Item ruangan 1 kolom, lainnya 2 kolom
+                                    "Daftar Barang", "Daftar Karyawan", "Daftar Ruangan" -> 2 // Header spans full width
+                                    else -> if (itemList[position] in ruanganList) 1 else 2 // Ruangan items span 1 column, others 2
                                 }
                             }
                         }
@@ -92,7 +101,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        // Observe data barang dari ViewModel dan perbarui list
+
+
+    // Observe data barang dari ViewModel dan perbarui list
 
         // Set up button listeners
         binding.buttonAdd.setOnClickListener {
