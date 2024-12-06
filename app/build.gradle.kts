@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     alias(libs.plugins.google.gms.google.services)
+//    alias(libs.plugins.google.gms.google.services) apply false
 }
 
 android {
@@ -43,6 +44,7 @@ android {
 }
 
 dependencies {
+implementation(libs.firebase.database)
     implementation(libs.firebase.database)
     implementation(libs.firebase.database)
     val room_version = "2.6.1"

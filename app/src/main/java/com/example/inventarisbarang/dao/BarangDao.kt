@@ -28,3 +28,4 @@ interface BarangDao {
     @Query("SELECT * FROM barang")
     fun getAll(): Array<Barang>
 }
+

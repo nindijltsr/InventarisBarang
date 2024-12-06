@@ -8,6 +8,8 @@ import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.tasks.await
+import android.util.Log
 
 class InventarisRepository(
     private val barangDao: BarangDao,
@@ -25,71 +27,138 @@ class InventarisRepository(
 
     // Barang CRUD
     suspend fun insert(barang: Barang) {
-        val newId = barang.id.toString() // Gunakan ID dari Room
-        barangDao.insert(barang) // Simpan ke Room
-        barangRef.child(newId).setValue(barang) // Gunakan ID yang sama untuk Firebase
+        try {
+            // Generate unique ID for Firebase
+            val barangList = barangRef.get().await().children
+            val newId = (barangList.count() + 1).toLong() // Set ID locally (for Room)
+
+            barang.id = newId
+
+            // Insert into Room database
+            barangDao.insert(barang)
+
+            // Insert into Firebase
+            barangRef.child(newId.toString()).setValue(barang).await()
+            Log.d("Repository", "Barang berhasil ditambahkan ke Firebase: $barang")
+        } catch (e: Exception) {
+            Log.e("Repository", "Gagal menambahkan barang: ${e.message}")
+        }
     }
 
     suspend fun update(barang: Barang) {
-        val key = barang.id.toString()
-        barangDao.update(barang) // Update di Room
-        barangRef.child(key).setValue(barang) // Update di Firebase menggunakan key yang sama
+        try {
+            // Update locally
+            barangDao.update(barang)
+
+            // Update Firebase
+            barangRef.child(barang.id.toString()).setValue(barang).await()
+            Log.d("Repository", "Barang berhasil diperbarui di Firebase: $barang")
+        } catch (e: Exception) {
+            Log.e("Repository", "Gagal memperbarui barang: ${e.message}")
+        }
     }
 
     suspend fun delete(barang: Barang) {
-        barangDao.delete(barang) // Hapus dari Room
-        barangRef.child(barang.id.toString()).removeValue() // Hapus dari Firebase
+        try {
+            // Delete locally
+            barangDao.delete(barang)
+
+            // Delete from Firebase
+            barangRef.child(barang.id.toString()).removeValue().await()
+            Log.d("Repository", "Barang berhasil dihapus dari Firebase: $barang")
+        } catch (e: Exception) {
+            Log.e("Repository", "Gagal menghapus barang: ${e.message}")
+        }
     }
 
     fun getBarangById(barangId: Long): LiveData<Barang> {
-        return barangDao.getBarangById(barangId.toString()) // Room expects Long, so no conversion here
+        return barangDao.getBarangById(barangId.toString())
     }
 
-
-    // Ruangan CRUD
+    //Ruangan
     suspend fun insert(ruangan: Ruangan) {
-        val newId = ruangan.id.toString() // Gunakan ID dari Room
-        ruanganDao.insert(ruangan) // Simpan ke Room
-        ruanganRef.child(newId).setValue(ruangan) // Gunakan ID yang sama untuk Firebase
+        try {
+            val ruanganList = ruanganRef.get().await().children
+            val newId = (ruanganList.count() + 1).toLong() // Set ID locally (for Room)
+
+            ruangan.id = newId
+
+            ruanganDao.insert(ruangan)
+            ruanganRef.child(newId.toString()).setValue(ruangan).await()
+            Log.d("Repository", "Ruangan berhasil ditambahkan ke Firebase: $ruangan")
+        } catch (e: Exception) {
+            Log.e("Repository", "Gagal menambahkan ruangan: ${e.message}")
+
+        }
     }
 
     suspend fun update(ruangan: Ruangan) {
-        // Gunakan ruangan.id sebagai key
-        val key = ruangan.id.toString()
-        ruanganDao.update(ruangan) // Update di Room
-        ruanganRef.child(key).setValue(ruangan) // Update di Firebase menggunakan key yang sama
+        try {
+            ruanganDao.update(ruangan)
+            ruanganRef.child(ruangan.id.toString()).setValue(ruangan).await()
+            Log.d("Repository", "Ruangan berhasil diperbarui di Firebase: $ruangan")
+        } catch (e: Exception) {
+            Log.e("Repository", "Gagal memperbarui ruangan: ${e.message}")
+
+        }
     }
 
     suspend fun delete(ruangan: Ruangan) {
-        ruanganDao.delete(ruangan) // Hapus dari Room
-        ruanganRef.child(ruangan.id.toString()).removeValue() // Hapus dari Firebase
+        try {
+            ruanganDao.delete(ruangan)
+            ruanganRef.child(ruangan.id.toString()).removeValue().await()
+            Log.d("Repository", "Ruangan berhasil dihapus dari Firebase: $ruangan")
+        }
+        catch (e: Exception) {
+            Log.e("Repository", "Gagal menghapus ruangan: ${e.message}")
+
+        }
     }
 
     fun getRuanganById(ruanganId: Long): LiveData<Ruangan> {
         return ruanganDao.getRuanganById(ruanganId.toString())
     }
 
-    // Karyawan CRUD
+    //Karyawan
     suspend fun insert(karyawan: Karyawan) {
-        val newId = karyawan.id.toString() // Gunakan ID dari Room
-        karyawanDao.insert(karyawan) // Simpan ke Room
-        karyawanRef.child(newId).setValue(karyawan) // Gunakan ID yang sama untuk Firebase
+        try {
+            val karyawanList = karyawanRef.get().await().children
+            val newId = (karyawanList.count() + 1).toLong() // Set ID locally (for Room)
+
+            karyawan.id = newId
+
+            karyawanDao.insert(karyawan)
+            karyawanRef.child(newId.toString()).setValue(karyawan).await()
+            Log.d("Repository", "Karyawan berhasil ditambahkan ke Firebase: $karyawan")
+        }
+        catch (e: Exception) {
+            Log.e("Repository", "Gagal menambahkan karyawan: ${e.message}")
+        }
     }
 
     suspend fun update(karyawan: Karyawan) {
-        // Gunakan karyawan.id sebagai key
-        val key = karyawan.id.toString()
-        karyawanDao.update(karyawan) // Update di Room
-        karyawanRef.child(key)
-            .setValue(karyawan) // Update di Firebase menggunakan key yang sama
+        try {
+            karyawanDao.update(karyawan)
+            karyawanRef.child(karyawan.id.toString()).setValue(karyawan).await()
+            Log.d("Repository", "Karyawan berhasil diperbarui di Firebase: $karyawan")
+        } catch (e: Exception) {
+            Log.e("Repository", "Gagal memperbarui karyawan: ${e.message}")
+        }
     }
 
     suspend fun delete(karyawan: Karyawan) {
-        karyawanDao.delete(karyawan) // Hapus dari Room
-        karyawanRef.child(karyawan.id.toString()).removeValue() // Hapus dari Firebase
+        try {
+            karyawanDao.delete(karyawan)
+            karyawanRef.child(karyawan.id.toString()).removeValue().await()
+            Log.d("Repository", "Karyawan berhasil dihapus dari Firebase: $karyawan")
+        }
+        catch (e: Exception) {
+            Log.e("Repository", "Gagal menghapus karyawan: ${e.message}")
+        }
     }
 
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {
         return karyawanDao.getKaryawanById(karyawanId.toString())
     }
-    }
+
+}

@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var inventarisViewModel: InventarisViewModel
     private lateinit var barangAdapter: BarangAdapter
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

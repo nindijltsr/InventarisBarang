@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "555284599019",
+    "firebase_url": "https://inventaris-barang-5a053-default-rtdb.firebaseio.com",
+    "project_id": "inventaris-barang-5a053",
+    "storage_bucket": "inventaris-barang-5a053.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555284599019:android:4744244c3c01a4fdbdeeae",
+        "android_client_info": {
+          "package_name": "com.example.inventarisbarang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbkt-m53poNXAMeP8MuhcrvXLJ4bAR8zw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
