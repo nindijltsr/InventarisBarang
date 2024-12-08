@@ -51,21 +51,51 @@ class InventarisRepository(
         }
     }
 
+//    suspend fun update(barang: Barang) {
+//        try {
+//            // Update locally
+//            barangDao.update(barang)
+//
+//            // Update Firebase
+//            barangRef.child(barang.nama).setValue(barang).await()
+//            Log.d("Repository", "Barang berhasil diperbarui di Firebase: $barang")
+//        } catch (e: Exception) {
+//            Log.e("Repository", "Gagal memperbarui barang: ${e.message}")
+//        }
+//    }
+
+
+
     suspend fun update(barang: Barang) {
         try {
-            // Update locally
+            // Update lokal di database (misalnya di Room atau lainnya)
             barangDao.update(barang)
 
-            // Update Firebase
-            barangRef.child(barang.nama).setValue(barang).await()
-            Log.d("Repository", "Barang berhasil diperbarui di Firebase: $barang")
+            // Cari barang berdasarkan nama barang yang sudah ada di Firebase
+            val existingBarangRef = barangRef.orderByChild("nama").equalTo(barang.nama).limitToFirst(1)
+
+            existingBarangRef.get().addOnSuccessListener { snapshot ->
+                if (snapshot.exists()) {
+                    // Ditemukan barang dengan nama yang sama, perbarui data barang
+                    barangRef.child(barang.nama).setValue(barang).addOnSuccessListener {
+                        Log.d("Repository", "Barang berhasil diperbarui di Firebase: $barang")
+                    }.addOnFailureListener { e ->
+                        Log.e("Repository", "Gagal memperbarui barang di Firebase: ${e.message}")
+                    }
+                } else {
+                    Log.e("Repository", "Barang dengan nama ${barang.nama} tidak ditemukan di Firebase.")
+                }
+            }.addOnFailureListener { e ->
+                Log.e("Repository", "Gagal mencari barang di Firebase: ${e.message}")
+            }
         } catch (e: Exception) {
             Log.e("Repository", "Gagal memperbarui barang: ${e.message}")
         }
     }
 
 
-        suspend fun delete(barang: Barang) {
+
+    suspend fun delete(barang: Barang) {
         try {
             // Delete locally
             barangDao.delete(barang)
