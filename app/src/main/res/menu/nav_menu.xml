@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_add_barang"
+        android:icon="@drawable/add_barang"
+        android:title="Add Barang"/>
+    <item
+        android:id="@+id/navigation_add_ruangan"
+        android:icon="@drawable/add_ruangan"
+        android:title="Add Ruangan"/>
+    <item
+        android:id="@+id/navigation_add_karyawan"
+        android:icon="@drawable/add_karyawan"
+        android:title="Add Karyawan"/>
+</menu>

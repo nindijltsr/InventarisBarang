@@ -102,18 +102,23 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-    // Observe data barang dari ViewModel dan perbarui list
-
-        // Set up button listeners
-        binding.buttonAdd.setOnClickListener {
-            showAddBarangDialog()
-        }
-        binding.buttonAddRuangan.setOnClickListener {
-            showAddRuanganDialog()
-        }
-        binding.buttonAddKaryawan.setOnClickListener {
-            showAddKaryawanDialog()
+        // Nav menu
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_add_barang -> {
+                    showAddBarangDialog()
+                    true
+                }
+                R.id.navigation_add_ruangan -> {
+                    showAddRuanganDialog()
+                    true
+                }
+                R.id.navigation_add_karyawan -> {
+                    showAddKaryawanDialog()
+                    true
+                }
+                else -> false
+            }
         }
     }
 
