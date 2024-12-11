@@ -28,6 +28,4 @@
         <activity android:name=".DetailBarangActivity" />
     </application>
 
-
-
 </manifest>
