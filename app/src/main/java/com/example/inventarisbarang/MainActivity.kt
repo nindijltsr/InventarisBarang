@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                 namaRuangan = nama
             )
 
-            inventarisViewModel.updateRuangan(updatedRuangan)
+            inventarisViewModel.updateRuangan(updatedRuangan, oldNama = ruangan.namaRuangan)
             Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
@@ -230,7 +230,7 @@ class MainActivity : AppCompatActivity() {
                 kontak = kontak
             )
 
-            inventarisViewModel.updateKaryawan(updatedKaryawan)
+            inventarisViewModel.updateKaryawan(updatedKaryawan, oldNama = karyawan.namaKaryawan)
             Toast.makeText(this, "Karyawan updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
@@ -474,7 +474,7 @@ class MainActivity : AppCompatActivity() {
                 karyawanId = karyawanId
             )
 
-            inventarisViewModel.updateBarang(updatedBarang)
+            inventarisViewModel.updateBarang(updatedBarang, oldNama = barang.nama)
             Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }

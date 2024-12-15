@@ -75,7 +75,7 @@ class EditKaryawanActivity : AppCompatActivity() {
                     jabatan = jabatan,
                     kontak = kontak.toString()
                 )
-                inventarisViewModel.updateKaryawan(updatedKaryawan)
+                inventarisViewModel.updateKaryawan(updatedKaryawan, oldNama = karyawan.namaKaryawan)
                 Toast.makeText(this, "Karyawan berhasil diperbarui", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Kembali") { dialog, _ -> dialog.dismiss() }

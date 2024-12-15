@@ -134,7 +134,7 @@ class EditBarangActivity : AppCompatActivity() {
                     ruanganId = ruanganList[spinnerRuangan.selectedItemPosition].id,
                     karyawanId = karyawanList[spinnerKaryawan.selectedItemPosition].id
                 )
-                inventarisViewModel.updateBarang(updatedBarang)
+                inventarisViewModel.updateBarang(updatedBarang, oldNama = barang.nama)
                 Toast.makeText(this, "Barang berhasil diperbarui", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Kembali") { dialog, _ -> dialog.dismiss() }

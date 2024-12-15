@@ -140,7 +140,7 @@ class AddBarangActivity : AppCompatActivity() {
                 karyawanId = karyawanId
             )
 
-            inventarisViewModel.updateBarang(barang)
+            inventarisViewModel.updateBarang(barang, editNama.text.toString())
             finish() // Selesai dan kembali ke activity sebelumnya
         }
     }

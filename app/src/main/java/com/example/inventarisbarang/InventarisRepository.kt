@@ -10,6 +10,8 @@ import com.example.inventarisbarang.entity.Ruangan
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 import android.util.Log
+import androidx.core.text.isDigitsOnly
+import com.google.firebase.database.DatabaseReference
 
 class InventarisRepository(
     private val barangDao: BarangDao,
@@ -28,79 +30,36 @@ class InventarisRepository(
     // Barang CRUD
     suspend fun insert(barang: Barang) {
         try {
-            val existingBarang = barangRef.child(barang.nama).get().await()
-            if (existingBarang.exists()) {
-                Log.e("Repository", "Barang dengan nama ${barang.nama} sudah ada di Firebase")
-                return // Exit to prevent duplication
-            }
-
-            // Generate unique ID for Firebase
             val barangList = barangRef.get().await().children
-            val newId = (barangList.count() + 1).toLong() // Set ID locally (for Room)
+            val newId = (barangList.count() + 1).toLong()
 
             barang.id = newId
 
-            // Insert into Room database
             barangDao.insert(barang)
-
-            // Insert into Firebase
-            barangRef.child(barang.nama).setValue(barang).await()
+            barangRef.child(barang.nama).setValue(barang)
             Log.d("Repository", "Barang berhasil ditambahkan ke Firebase: $barang")
         } catch (e: Exception) {
             Log.e("Repository", "Gagal menambahkan barang: ${e.message}")
         }
     }
 
-//    suspend fun update(barang: Barang) {
-//        try {
-//            // Update locally
-//            barangDao.update(barang)
-//
-//            // Update Firebase
-//            barangRef.child(barang.nama).setValue(barang).await()
-//            Log.d("Repository", "Barang berhasil diperbarui di Firebase: $barang")
-//        } catch (e: Exception) {
-//            Log.e("Repository", "Gagal memperbarui barang: ${e.message}")
-//        }
-//    }
-
-
-
-    suspend fun update(barang: Barang) {
+    suspend fun update(barang: Barang, oldNama: String) {
         try {
-            // Update lokal di database (misalnya di Room atau lainnya)
             barangDao.update(barang)
-
-            // Cari barang berdasarkan nama barang yang sudah ada di Firebase
-            val existingBarangRef = barangRef.orderByChild("nama").equalTo(barang.nama).limitToFirst(1)
-
-            existingBarangRef.get().addOnSuccessListener { snapshot ->
-                if (snapshot.exists()) {
-                    // Ditemukan barang dengan nama yang sama, perbarui data barang
-                    barangRef.child(barang.nama).setValue(barang).addOnSuccessListener {
-                        Log.d("Repository", "Barang berhasil diperbarui di Firebase: $barang")
-                    }.addOnFailureListener { e ->
-                        Log.e("Repository", "Gagal memperbarui barang di Firebase: ${e.message}")
-                    }
-                } else {
-                    Log.e("Repository", "Barang dengan nama ${barang.nama} tidak ditemukan di Firebase.")
-                }
-            }.addOnFailureListener { e ->
-                Log.e("Repository", "Gagal mencari barang di Firebase: ${e.message}")
+            if (barang.nama != oldNama) {
+                barangRef.child(oldNama).removeValue()
             }
+
+            barangRef.child(barang.nama).setValue(barang)
         } catch (e: Exception) {
             Log.e("Repository", "Gagal memperbarui barang: ${e.message}")
         }
     }
 
 
-
     suspend fun delete(barang: Barang) {
         try {
-            // Delete locally
             barangDao.delete(barang)
-
-            // Delete from Firebase
             barangRef.child(barang.nama).removeValue().await()
             Log.d("Repository", "Barang berhasil dihapus dari Firebase: $barang")
         } catch (e: Exception) {
@@ -135,21 +94,13 @@ class InventarisRepository(
         }
     }
 
-    suspend fun update(ruangan: Ruangan) {
+    suspend fun update(ruangan: Ruangan, oldNama: String) {
         try {
-            // Periksa apakah barang dengan nama tersebut ada di Firebase
-            val existingItem = ruanganRef.child(ruangan.namaRuangan).get().await()
-            if (existingItem.exists()) {
-                // Update di Room Database
-                ruanganDao.update(ruangan)
-
-                // Update di Firebase
-                ruanganRef.child(ruangan.namaRuangan).setValue(ruangan).await()
-                Log.d("Repository", "Karyawan berhasil diperbarui di Firebase: $ruangan")
-            } else {
-                // Karyawan tidak ditemukan di Firebase
-                Log.e("Repository", "Karyawan dengan namaRuangan ${ruangan.namaRuangan} tidak ditemukan di Firebase.")
+            ruanganDao.update(ruangan)
+            if (ruangan.namaRuangan != oldNama) {
+                ruanganRef.child(oldNama).removeValue()
             }
+            ruanganRef.child(ruangan.namaRuangan).setValue(ruangan)
         } catch (e: Exception) {
             Log.e("Repository", "Gagal memperbarui karyawan: ${e.message}")
         }
@@ -194,21 +145,13 @@ class InventarisRepository(
         }
     }
 
-    suspend fun update(karyawan: Karyawan) {
+    suspend fun update(karyawan: Karyawan, oldNama: String) {
         try {
-            // Periksa apakah barang dengan nama tersebut ada di Firebase
-            val existingItem = karyawanRef.child(karyawan.namaKaryawan).get().await()
-            if (existingItem.exists()) {
-                // Update di Room Database
-                karyawanDao.update(karyawan)
-
-                // Update di Firebase
-                karyawanRef.child(karyawan.namaKaryawan).setValue(karyawan).await()
-                Log.d("Repository", "Karyawan berhasil diperbarui di Firebase: $karyawan")
-            } else {
-                // Karyawan tidak ditemukan di Firebase
-                Log.e("Repository", "Karyawan dengan namaKaryawan ${karyawan.namaKaryawan} tidak ditemukan di Firebase.")
+            karyawanDao.update(karyawan)
+            if (karyawan.namaKaryawan != oldNama) {
+                karyawanRef.child(oldNama).removeValue()
             }
+            karyawanRef.child(karyawan.namaKaryawan).setValue(karyawan)
         } catch (e: Exception) {
             Log.e("Repository", "Gagal memperbarui karyawan: ${e.message}")
         }
@@ -228,5 +171,10 @@ class InventarisRepository(
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {
         return karyawanDao.getKaryawanById(karyawanId.toString())
     }
+
+}
+
+private fun DatabaseReference.updateChildren(barang: Barang): Any {
+    return this.updateChildren(barang)
 
 }

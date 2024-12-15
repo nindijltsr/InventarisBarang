@@ -66,7 +66,7 @@ class EditRuanganActivity : AppCompatActivity() {
                 val updatedRuangan = ruangan.copy(
                     namaRuangan = nama
                 )
-                inventarisViewModel.updateRuangan(updatedRuangan)
+                inventarisViewModel.updateRuangan(updatedRuangan, oldNama = ruangan.namaRuangan)
                 Toast.makeText(this, "Ruangan berhasil diperbarui", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Kembali") { dialog, _ -> dialog.dismiss() }
