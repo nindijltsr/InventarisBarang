@@ -13,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash) // Pastikan ini mengarah ke layout yang benar
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.DarkBlue)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.Brown)
 
         // Inisialisasi tombol
         buttonNext = findViewById(R.id.button_next)

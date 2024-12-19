@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.DarkBlue)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.Brown)
         inventarisViewModel = ViewModelProvider(this).get(InventarisViewModel::class.java)
 
         barangAdapter = BarangAdapter(

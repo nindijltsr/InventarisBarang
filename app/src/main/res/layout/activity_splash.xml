@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/DarkBlue">
+    android:background="@color/Brown">
 
     <ImageView
         android:id="@+id/icon"
@@ -25,9 +25,9 @@
         android:layout_width="109dp"
         android:layout_height="57dp"
         android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/OceanBlue"
+        android:backgroundTint="@color/white"
         android:text="Next"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

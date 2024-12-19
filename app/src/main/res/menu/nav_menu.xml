@@ -2,13 +2,16 @@
     <item
         android:id="@+id/navigation_add_barang"
         android:icon="@drawable/add_barang"
+        android:state_checked="true"
         android:title="Add Barang"/>
     <item
         android:id="@+id/navigation_add_ruangan"
         android:icon="@drawable/add_ruangan"
+        android:state_checked="true"
         android:title="Add Ruangan"/>
     <item
         android:id="@+id/navigation_add_karyawan"
         android:icon="@drawable/add_karyawan"
+        android:state_checked="true"
         android:title="Add Karyawan"/>
 </menu>

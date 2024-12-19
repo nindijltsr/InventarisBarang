@@ -14,4 +14,9 @@
     <color name="DarkBlue">#1967B1</color>
     <color name="DarkBlue2">#012445</color>
     <color name="OceanBlue">#7AA2E3</color>
+    <color name="DarkBrown">#623500</color>
+    <color name="Brown">#874800</color>
+    <color name="LightBrown">#C59362</color>
+    <color name="Background">#E0E0E0</color>
+
 </resources>

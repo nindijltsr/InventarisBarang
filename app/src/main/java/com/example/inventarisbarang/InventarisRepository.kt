@@ -27,6 +27,8 @@ class InventarisRepository(
     val allRuangan: LiveData<List<Ruangan>> = ruanganDao.getAllRuangan()
     val allKaryawan: LiveData<List<Karyawan>> = karyawanDao.getAllKaryawan()
 
+
+
     // Barang CRUD
     suspend fun insert(barang: Barang) {
         try {
@@ -174,7 +176,3 @@ class InventarisRepository(
 
 }
 
-private fun DatabaseReference.updateChildren(barang: Barang): Any {
-    return this.updateChildren(barang)
-
-}
