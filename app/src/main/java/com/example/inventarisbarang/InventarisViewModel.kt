@@ -40,7 +40,8 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun updateBarang(barang: Barang, oldNama: String) = viewModelScope.launch {
+    fun updateBarang
+                (barang: Barang, oldNama: String) = viewModelScope.launch {
         try {
             repository.update(barang, oldNama) // Updates both Room and Firebase
             Log.d("InventarisViewModel", "Barang diperbarui: $barang")

@@ -27,16 +27,12 @@ class InventarisRepository(
     val allRuangan: LiveData<List<Ruangan>> = ruanganDao.getAllRuangan()
     val allKaryawan: LiveData<List<Karyawan>> = karyawanDao.getAllKaryawan()
 
-
-
     // Barang CRUD
     suspend fun insert(barang: Barang) {
         try {
             val barangList = barangRef.get().await().children
             val newId = (barangList.count() + 1).toLong()
-
             barang.id = newId
-
             barangDao.insert(barang)
             barangRef.child(barang.nama).setValue(barang)
             Log.d("Repository", "Barang berhasil ditambahkan ke Firebase: $barang")
@@ -57,7 +53,6 @@ class InventarisRepository(
             Log.e("Repository", "Gagal memperbarui barang: ${e.message}")
         }
     }
-
 
     suspend fun delete(barang: Barang) {
         try {
@@ -169,7 +164,6 @@ class InventarisRepository(
             Log.e("Repository", "Gagal menghapus karyawan: ${e.message}")
         }
     }
-
     fun getKaryawanById(karyawanId: Long): LiveData<Karyawan> {
         return karyawanDao.getKaryawanById(karyawanId.toString())
     }
