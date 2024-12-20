@@ -82,9 +82,4 @@ implementation(libs.firebase.database)
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC.2")
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation (libs.firebase.database.ktx)
-    implementation (libs.firebase.auth.ktx)
-
-
 }
