@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
-import com.example.inventarisbarang.viewmodel.InventarisViewModel
+import com.example.inventarisbarang.Backend.InventarisViewModel
 
 class BarangAdapter(
     private val onItemClickListener: (Barang) -> Unit,

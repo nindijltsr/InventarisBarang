@@ -1,12 +1,13 @@
-package com.example.inventarisbarang
+package com.example.inventarisbarang.addActivity
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.inventarisbarang.R
 import com.example.inventarisbarang.entity.Ruangan
-import com.example.inventarisbarang.viewmodel.InventarisViewModel
+import com.example.inventarisbarang.Backend.InventarisViewModel
 
 class AddRuanganActivity : AppCompatActivity() {
 

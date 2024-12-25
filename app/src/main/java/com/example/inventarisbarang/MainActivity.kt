@@ -16,10 +16,15 @@ import com.example.inventarisbarang.databinding.ActivityMainBinding
 import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
-import com.example.inventarisbarang.viewmodel.InventarisViewModel
+import com.example.inventarisbarang.Backend.InventarisViewModel
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.inventarisbarang.entityActivity.BarangFragment
+import com.example.inventarisbarang.entityActivity.KaryawanFragment
+import com.example.inventarisbarang.entityActivity.RuanganFragment
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -60,66 +65,38 @@ class MainActivity : AppCompatActivity() {
         // Set up RecyclerView with adapter and layout manager
         binding.recyclerView.apply {
             adapter = barangAdapter
-
-            // Observe LiveData from ViewModel
-            inventarisViewModel.allBarang.observe(this@MainActivity, { barangs ->
-                inventarisViewModel.allKaryawan.observe(this@MainActivity, { karyawans ->
-                    inventarisViewModel.allRuangan.observe(this@MainActivity, { ruanganList ->
-
-                        // Combine data into a single list with headers
-                        val itemList = mutableListOf<Any>()
-                        itemList.add("Daftar Barang")
-                        itemList.addAll(barangs)
-                        itemList.add("Daftar Karyawan")
-                        itemList.addAll(karyawans)
-                        itemList.add("Daftar Ruangan")
-                        itemList.addAll(ruanganList)
-
-                        barangAdapter.submitList(itemList)
-
-                        // Configure GridLayoutManager with SpanSizeLookup
-                        val gridLayoutManager = GridLayoutManager(this@MainActivity, 2)
-                        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                            override fun getSpanSize(position: Int): Int {
-                                // Validate position to prevent IndexOutOfBoundsException
-                                if (position >= itemList.size) {
-                                    return 2 // Default span size in case of an invalid position
-                                }
-
-                                return when (itemList[position]) {
-                                    "Daftar Barang", "Daftar Karyawan", "Daftar Ruangan" -> 2 // Header spans full width
-                                    else -> if (itemList[position] in ruanganList) 1 else 2 // Ruangan items span 1 column, others 2
-                                }
-                            }
-                        }
-
-                        layoutManager = gridLayoutManager
-                    })
-                })
-            })
+            layoutManager = LinearLayoutManager(context)
         }
 
 
-
+        if (savedInstanceState == null) {
+            loadFragment(BarangFragment())
+        }
 
         // Nav menu
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_add_barang -> {
-                    showAddBarangDialog()
+                    loadFragment(BarangFragment())
                     true
                 }
                 R.id.navigation_add_ruangan -> {
-                    showAddRuanganDialog()
+                    loadFragment(RuanganFragment())
                     true
                 }
                 R.id.navigation_add_karyawan -> {
-                    showAddKaryawanDialog()
+                    loadFragment(KaryawanFragment())
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     @SuppressLint("MissingInflatedId")
@@ -155,7 +132,7 @@ class MainActivity : AppCompatActivity() {
                 namaRuangan = nama
             )
 
-            inventarisViewModel.updateRuangan(updatedRuangan, oldNama = ruangan.namaRuangan)
+            inventarisViewModel.updateRuangan(updatedRuangan)
             Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
@@ -230,7 +207,7 @@ class MainActivity : AppCompatActivity() {
                 kontak = kontak
             )
 
-            inventarisViewModel.updateKaryawan(updatedKaryawan, oldNama = karyawan.namaKaryawan)
+            inventarisViewModel.updateKaryawan(updatedKaryawan)
             Toast.makeText(this, "Karyawan updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
@@ -474,7 +451,7 @@ class MainActivity : AppCompatActivity() {
                 karyawanId = karyawanId
             )
 
-            inventarisViewModel.updateBarang(updatedBarang, oldNama = barang.nama)
+            inventarisViewModel.updateBarang(updatedBarang)
             Toast.makeText(this, "Barang updated!", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }

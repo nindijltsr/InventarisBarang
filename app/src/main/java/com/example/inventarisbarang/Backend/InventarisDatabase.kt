@@ -1,4 +1,4 @@
-package com.example.inventarisbarang.database
+package com.example.inventarisbarang.Backend
 
 import android.content.Context
 import androidx.room.Database
@@ -6,9 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.inventarisbarang.dao.BarangDao
-import com.example.inventarisbarang.dao.KaryawanDao
-import com.example.inventarisbarang.dao.RuanganDao
+import com.example.inventarisbarang.DAO.BarangDao
+import com.example.inventarisbarang.DAO.KaryawanDao
+import com.example.inventarisbarang.DAO.RuanganDao
 import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan

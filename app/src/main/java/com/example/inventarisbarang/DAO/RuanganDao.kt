@@ -1,4 +1,4 @@
-package com.example.inventarisbarang.dao
+package com.example.inventarisbarang.DAO
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,7 +6,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
 
 @Dao

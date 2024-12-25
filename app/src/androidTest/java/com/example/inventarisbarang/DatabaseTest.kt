@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.inventarisbarang.dao.BarangDao
-import com.example.inventarisbarang.dao.KaryawanDao
-import com.example.inventarisbarang.dao.RuanganDao
-import com.example.inventarisbarang.database.InventarisDatabase
+import com.example.inventarisbarang.DAO.BarangDao
+import com.example.inventarisbarang.DAO.KaryawanDao
+import com.example.inventarisbarang.DAO.RuanganDao
+import com.example.inventarisbarang.Backend.InventarisDatabase
 import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan

@@ -1,4 +1,4 @@
-package com.example.inventarisbarang.dao
+package com.example.inventarisbarang.DAO
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

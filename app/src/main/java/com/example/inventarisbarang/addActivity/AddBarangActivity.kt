@@ -1,4 +1,4 @@
-package com.example.inventarisbarang
+package com.example.inventarisbarang.addActivity
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -8,8 +8,9 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.inventarisbarang.R
 import com.example.inventarisbarang.entity.Barang
-import com.example.inventarisbarang.viewmodel.InventarisViewModel
+import com.example.inventarisbarang.Backend.InventarisViewModel
 
 class AddBarangActivity : AppCompatActivity() {
 
@@ -140,7 +141,7 @@ class AddBarangActivity : AppCompatActivity() {
                 karyawanId = karyawanId
             )
 
-            inventarisViewModel.updateBarang(barang, editNama.text.toString())
+            inventarisViewModel.updateBarang(barang)
             finish() // Selesai dan kembali ke activity sebelumnya
         }
     }

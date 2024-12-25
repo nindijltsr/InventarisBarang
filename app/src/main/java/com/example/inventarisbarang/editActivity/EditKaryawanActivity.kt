@@ -1,4 +1,4 @@
-package com.example.inventarisbarang
+package com.example.inventarisbarang.editActivity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,8 +8,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.inventarisbarang.R
 import com.example.inventarisbarang.entity.Karyawan
-import com.example.inventarisbarang.viewmodel.InventarisViewModel
+import com.example.inventarisbarang.Backend.InventarisViewModel
 
 // EditBarangActivity adalah subclass dari AppCompatActivity yang digunakan untuk
 // membuat UI activity untuk mengedit barang.
@@ -75,7 +76,7 @@ class EditKaryawanActivity : AppCompatActivity() {
                     jabatan = jabatan,
                     kontak = kontak.toString()
                 )
-                inventarisViewModel.updateKaryawan(updatedKaryawan, oldNama = karyawan.namaKaryawan)
+                inventarisViewModel.updateKaryawan(updatedKaryawan)
                 Toast.makeText(this, "Karyawan berhasil diperbarui", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Kembali") { dialog, _ -> dialog.dismiss() }

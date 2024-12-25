@@ -1,4 +1,4 @@
-package com.example.inventarisbarang
+package com.example.inventarisbarang.detailActivity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,9 +7,10 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.example.inventarisbarang.MainActivity
 import com.example.inventarisbarang.databinding.ActivityDetailBarangBinding
 import com.example.inventarisbarang.entity.Barang
-import com.example.inventarisbarang.viewmodel.InventarisViewModel
+import com.example.inventarisbarang.Backend.InventarisViewModel
 
 class DetailBarangActivity : AppCompatActivity() {
 

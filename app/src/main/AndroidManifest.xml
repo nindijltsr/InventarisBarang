@@ -21,11 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".AddBarangActivity" />
-        <activity android:name=".AddKaryawanActivity" />
-        <activity android:name=".AddRuanganActivity" />
-        <activity android:name=".EditBarangActivity" />
-        <activity android:name=".DetailBarangActivity" />
+        <activity android:name=".addActivity.AddBarangActivity" />
+        <activity android:name=".addActivity.AddKaryawanActivity" />
+        <activity android:name=".addActivity.AddRuanganActivity" />
+        <activity android:name=".editActivity.EditBarangActivity" />
+        <activity android:name=".detailActivity.DetailBarangActivity" />
     </application>
 
 </manifest>

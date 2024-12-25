@@ -1,12 +1,10 @@
-package com.example.inventarisbarang.viewmodel
+package com.example.inventarisbarang.Backend
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.inventarisbarang.InventarisRepository
-import com.example.inventarisbarang.database.InventarisDatabase
 import com.example.inventarisbarang.entity.Barang
 import com.example.inventarisbarang.entity.Karyawan
 import com.example.inventarisbarang.entity.Ruangan
@@ -40,10 +38,9 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun updateBarang
-                (barang: Barang, oldNama: String) = viewModelScope.launch {
+    fun updateBarang(barang: Barang) = viewModelScope.launch {
         try {
-            repository.update(barang, oldNama) // Updates both Room and Firebase
+            repository.update(barang) // Updates both Room and Firebase
             Log.d("InventarisViewModel", "Barang diperbarui: $barang")
         } catch (e: Exception) {
             Log.e("InventarisViewModel", "Gagal memperbarui barang: ${e.message}")
@@ -64,7 +61,9 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         return repository.getBarangById(barangId)
     }
 
-    // Ruangan
+
+
+    // Ruangan View Model
     fun insertRuangan(ruangan: Ruangan) = viewModelScope.launch {
         try {
             repository.insert(ruangan) // Inserts into Room and Firebase
@@ -74,9 +73,9 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun updateRuangan(ruangan: Ruangan, oldNama: String) = viewModelScope.launch {
+    fun updateRuangan(ruangan: Ruangan) = viewModelScope.launch {
         try {
-            repository.update(ruangan, oldNama) // Updates both Room and Firebase
+            repository.update(ruangan) // Updates both Room and Firebase
             Log.d("InventarisViewModel", "Ruangan diperbarui: $ruangan")
         } catch (e: Exception) {
             Log.e("InventarisViewModel", "Gagal memperbarui ruangan: ${e.message}")
@@ -115,9 +114,9 @@ class InventarisViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun updateKaryawan(karyawan: Karyawan, oldNama: String) = viewModelScope.launch {
+    fun updateKaryawan(karyawan: Karyawan) = viewModelScope.launch {
         try {
-            repository.update(karyawan, oldNama) // Updates both Room and Firebase
+            repository.update(karyawan) // Updates both Room and Firebase
             Log.d("InventarisViewModel", "Karyawan diperbarui: $karyawan")
         } catch (e: Exception) {
             Log.e("InventarisViewModel", "Gagal memperbarui karyawan: ${e.message}")
