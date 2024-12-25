@@ -84,7 +84,7 @@ class RuanganFragment : Fragment() {
     }
 
     private fun showEditKaryawanDialog(karyawan: Karyawan) {
-        TODO("Not yet implemented")
+
     }
 
     private fun showDetailKaryawanDialog(karyawan: Karyawan) {
